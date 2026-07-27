@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Master Status Tracker | Kontakt.io Onboarding</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .tracker-table { width:100%; border-collapse:collapse; background:var(--color-white); font-size:0.85rem; }
+    .tracker-table thead { background:var(--color-plum); color:#fff; }
+    .tracker-table thead th { padding:0.7rem 1rem; text-align:left; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; white-space:nowrap; }
+    .tracker-table tbody tr { border-bottom:1px solid var(--color-blush); }
+    .tracker-table tbody tr:hover { background:#fef6f4; }
+    .tracker-table tbody td { padding:0.7rem 1rem; vertical-align:middle; }
+    .tracker-table .check-cell { width:36px; text-align:center; }
+    .tracker-table input[type="checkbox"] { width:16px; height:16px; accent-color:var(--color-red); cursor:pointer; }
+    .milestone-cell .badge { font-size:0.65rem; }
+    .tracker-group-wrapper { margin-bottom:2.5rem; border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); }
+    .tracker-section-locked { position:relative; }
+    .tracker-section-locked .tracker-table tbody td,
+    .tracker-section-locked .tracker-table tbody tr { pointer-events:none; user-select:none; }
+    .tracker-section-locked .tracker-table tbody { opacity:0.25; filter:blur(2px); }
+    .tracker-lock-overlay {
+      position:absolute; inset:0; z-index:10;
+      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.5rem;
+      text-align:center; padding:2rem 1.5rem;
+    }
+    .tracker-lock-icon {
+      width:48px; height:48px; border-radius:50%;
+      background:linear-gradient(135deg,var(--color-plum),#5b21b6);
+      display:flex; align-items:center; justify-content:center;
+      box-shadow:0 4px 14px rgba(61,38,70,0.25); flex-shrink:0; margin-bottom:0.25rem;
+    }
+    .tracker-lock-title { font-weight:700; font-size:0.95rem; color:var(--color-plum); margin:0; }
+    .tracker-lock-sub { font-size:0.8rem; color:#6b7280; margin:0; max-width:260px; line-height:1.5; }
+  </style>
+</head>
+<body>
+
+<nav class="main-nav">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">
+      <img src="https://kontakt.io/app/themes/juniper-theme-new/dist/logo.2dc4261a.svg" alt="Kontakt.io" style="height:26px; display:block;" />
+      <span class="logo-subtitle">Revenue Enablement</span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="index.html">Program Overview</a></li>
+      <li class="nav-dropdown">
+        <button class="dropdown-toggle">Week 1 &#x25BE;</button>
+        <ul class="dropdown-menu week-nav-menu">
+          <li class="nav-day-item"><a href="week-1.html#day1">Day 1 &#x2014; Who is Kontakt.io?</a></li>
+          <li class="nav-day-item" data-unlock-key="kontakt-w1d1_quiz" data-unlock-val="done"><a href="week-1.html#day2">Day 2 &#x2014; The Hospital Crisis</a></li>
+          <li class="nav-day-item" data-unlock-key="kontakt-w1d2_quiz" data-unlock-val="done"><a href="week-1.html#day3">Day 3 &#x2014; Platform &amp; Use Cases</a></li>
+          <li class="nav-day-item" data-unlock-key="kontakt-w1d3_quiz" data-unlock-val="done"><a href="week-1.html#day4">Day 4 &#x2014; Persona Mastery</a></li>
+          <li class="nav-day-item" data-unlock-key="kontakt-w1d4_quiz" data-unlock-val="done"><a href="week-1.html#day5">Day 5 &#x2014; KIO Beyond RTLS</a></li>
+        </ul>
+      </li>
+      <li class="nav-dropdown">
+        <button class="dropdown-toggle">Week 2 &#x25BE;</button>
+        <ul class="dropdown-menu week-nav-menu">
+          <li class="nav-day-item" data-unlock-key="kontakt-w1d5_quiz" data-unlock-val="done"><a href="week-2.html#day6">Day 6 &#x2014; Selling into Healthcare</a></li>
+          <li class="nav-day-item" data-unlock-key="kontakt-w2d6_quiz" data-unlock-val="done"><a href="week-2.html#day7">Day 7 &#x2014; Strategic Conversations</a></li>
+          <li class="nav-day-item" data-unlock-key="kontakt-w2d7_quiz" data-unlock-val="done"><a href="week-2.html#day8">Day 8 &#x2014; Enabling Your Buyers</a></li>
+          <li class="nav-day-item" data-unlock-key="kontakt-w2d8_quiz" data-unlock-val="done"><a href="week-2.html#day9">Day 9 &#x2014; AI Orchestration</a></li>
+          <li class="nav-day-item" data-unlock-key="kontakt-w2d9" data-unlock-val="complete"><a href="week-2.html#day10">Day 10 &#x2014; Sales Processes</a></li>
+        </ul>
+      </li>
+      <li><a href="week-3.html">Week 3</a></li>
+      <li><a href="week-4.html">Week 4</a></li>
+      <li class="nav-dropdown">
+        <button class="dropdown-toggle">Role Tracks ▾</button>
+        <ul class="dropdown-menu">
+          <li><span style="display:flex;align-items:center;justify-content:space-between;padding:0.35rem 1rem;color:#9ca3af;cursor:not-allowed;pointer-events:none;user-select:none;">AE Track<span style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;background:#e5e7eb;color:#9ca3af;padding:0.1rem 0.45rem;border-radius:999px;margin-left:0.5rem;">Soon</span></span></li>
+          <li><span style="display:flex;align-items:center;justify-content:space-between;padding:0.35rem 1rem;color:#9ca3af;cursor:not-allowed;pointer-events:none;user-select:none;">SDR Track<span style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;background:#e5e7eb;color:#9ca3af;padding:0.1rem 0.45rem;border-radius:999px;margin-left:0.5rem;">Soon</span></span></li>
+          <li><span style="display:flex;align-items:center;justify-content:space-between;padding:0.35rem 1rem;color:#9ca3af;cursor:not-allowed;pointer-events:none;user-select:none;">CSM Track<span style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;background:#e5e7eb;color:#9ca3af;padding:0.1rem 0.45rem;border-radius:999px;margin-left:0.5rem;">Soon</span></span></li>
+        </ul>
+      </li>
+      <li class="nav-dropdown">
+        <button class="dropdown-toggle">Resources ▾</button>
+        <ul class="dropdown-menu">
+          <li><a href="milestones.html">Milestones</a></li>
+          <li><a href="objection-library.html">Objection Library</a></li>
+          <li><a href="mentor-program.html">Mentor Program</a></li>
+          <li><a href="status-tracker.html">Master Status Tracker</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="container">
+    <h1>Master Status Tracker</h1>
+    <p class="subtitle">Full checklist of all 20 days, milestones, role tracks, and supporting programs. Day statuses for Weeks 1 &amp; 2 sync automatically with your progress on the day pages.</p>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+
+    <div class="card mb-3" style="padding:1rem 1.5rem;">
+      <div style="display:flex; gap:2rem; flex-wrap:wrap; align-items:center;">
+        <div style="font-size:0.8rem;">
+          <strong>Status key:</strong>
+          &nbsp;<span class="badge badge-status-not-started">Not Started</span>
+          &nbsp;<span class="badge badge-status-in-progress">In Progress</span>
+          &nbsp;<span class="badge badge-status-complete">Complete</span>
+        </div>
+        <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-left:auto; align-items:center;">
+          <a href="milestones.html" class="btn btn-secondary btn-sm">Milestones Detail</a>
+          <button class="btn btn-secondary btn-sm" onclick="if(confirm('Reset all course progress? This will clear all saved statuses and quiz completions and cannot be undone.')){localStorage.clear();location.reload();}" style="color:#dc2626;border-color:#dc2626;">Reset All Progress</button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- WEEK 1 -->
+    <div class="tracker-group-wrapper">
+      <div class="tracker-group-header">Week 1 — Foundation (Days 1–5)</div>
+      <div style="overflow-x:auto;">
+        <table class="tracker-table">
+          <thead>
+            <tr>
+              <th class="check-cell">✓</th>
+              <th style="min-width:70px;">Day</th>
+              <th>Topic &amp; Key Content</th>
+              <th>Milestone</th>
+              <th>Owner</th>
+              <th style="min-width:120px;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="check-cell"><input type="checkbox" /></td>
+              <td><a href="week-1.html#day1">Day 1</a></td>
+              <td>
+                <strong>Who is Kontakt.io?</strong><br />
+                <span style="color:#6b7280; font-size:0.8rem;">Company mission &amp; market position · Revenue org structure · How to work with your team · Product domain overview · Tech stack setup (Salesforce, Salesloft, LinkedIn, Gong)</span>
+              </td>
+              <td class="milestone-cell">—</td>
+              <td>Rep + Manager</td>
+              <td><button class="status-toggle" data-status="not-started" data-storage-key="w1d1">Not Started</button></td>
+            </tr>
+            <tr>
+              <td class="check-cell"><input type="checkbox" /></td>
+              <td><a href="week-1.html#day2">Day 2</a></td>
+              <td>
+                <strong>The Hospital Crisis &amp; Industry Intelligence</strong><br />
+                <span style="color:#6b7280; font-size:0.8rem;">Hospital business model · Payer landscape &amp; margin pressures · Fiscal year drivers · Hospital buying cycles · How financial pressure creates urgency for RTLS</span>
+              </td>
+              <td class="milestone-cell">—</td>
+              <td>Rep + Manager</td>
+              <td><button class="status-toggle" data-status="not-started" data-storage-key="w1d2">Not Started</button></td>
+            </tr>
+            <tr>
+              <td class="check-cell"><input type="checkbox" /></td>
+              <td><a href="week-1.html#day3">Day 3</a></td>
+              <td>
+                <strong>The Kontakt.io Platform: Products, Solutions &amp; Use Cases</strong><br />
+                <span style="color:#6b7280; font-size:0.8rem;">Three platform domains (Care Asset Management, Staff Safety &amp; Experience, Patient Experience) · AI agents &amp; orchestration layer · Platform deployment model · Competitive differentiation · Product Course completion</span>
+              </td>
+              <td class="milestone-cell"><span class="badge badge-milestone">M1</span></td>
+              <td>Rep + Manager</td>
+              <td><button class="status-toggle" data-status="not-started" data-storage-key="w1d3">Not Started</button></td>
+            </tr>
+            <tr>
+              <td class="check-cell"><input type="checkbox" /></td>
+              <td><a href="week-1.html#day4">Day 4</a></td>
+              <td>
+                <strong>Persona Mastery &amp; Buyer Insights</strong><br />
+                <span style="color:#6b7280; font-size:0.8rem;">Five executive personas (C-Suite/VP, Clinical Ops, Asset Mgmt &amp; Supply Chain, Safety &amp; Security, IT) · Pain points &amp; KPIs by role · Discovery approach per persona · Persona-to-use-case mapping</span>
+              </td>
+              <td class="milestone-cell">—</td>
+              <td>Rep + Manager</td>
+              <td><button class="status-toggle" data-status="not-started" data-storage-key="w1d4">Not Started</button></td>
+            </tr>
+            <tr>
+              <td class="check-cell"><input type="checkbox" /></td>
+              <td><a href="week-1.html#day5">Day 5</a></td>
+              <td>
+                <strong>KIO Goes Beyond RTLS: From Visibility to Execution</strong><br />
+                <span style="color:#6b7280; font-size:0.8rem;">RTLS 101 (technology types, infrastructure, ROI) · 4 domains of RTLS value · Why RTLS as a point solution fails · Infrastructure → Workflow → AI → Orchestration stack · Consultative reframe · Discovery questions by buyer</span>
+              </td>
+              <td class="milestone-cell"><span class="badge badge-milestone">M2</span></td>
+              <td>Rep + Manager</td>
+              <td><button class="status-toggle" data-status="not-started" data-storage-key="w1d5">Not Started</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- WEEK 2 -->
+    <div class="tracker-group-wrapper">
+      <div class="tracker-group-header">Week 2 — Execution (Days 6–10)</div>
+      <div style="overflow-x:auto;">
+        <table class="tracker-table">
+          <thead>
+            <tr>
+              <th class="check-cell">✓</th>
+              <th style="min-width:70px;">Day</th>
+              <th>Topic &amp; Key Content</th>
+              <th>Milestone</th>
+              <th>Owner</th>
+              <th style="min-width:120px;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="check-cell"><input type="checkbox" /></td>
+              <td><a href="week-2.html#day6">Day 6</a></td>
+              <td>
+                <strong>Selling into Healthcare</strong><br />
+                <span style="color:#6b7280; font-size:0.8rem;">SDR prospecting playbook · BANT framework &amp; SAO criteria · Lead priority SLA (MQL, Inbound, Cold) · Territory structure &amp; segment definitions · Domino Tier model · Salesloft sequence enrollment · Do Not Disturb compliance</span>
+              </td>
+              <td class="milestone-cell">—</td>
+              <td>Rep + Manager</td>
+              <td><button class="status-toggle" data-status="not-started" data-storage-key="w2d6">Not Started</button></td>
+            </tr>
+            <tr>
+              <td class="check-cell"><input type="checkbox" /></td>
+              <td><a href="week-2.html#day7">Day 7</a></td>
+              <td>
+                <strong>A Blueprint for Strategic Conversations</strong><br />
+                <span style="color:#6b7280; font-size:0.8rem;">The Discovery Arc (5 stages) · G.O.L.D. discovery lenses (Grounded, Operational, Layered, Data) · LAER objection handling framework · Micro-commitments &amp; next-step discipline · Live scenario practice</span>
+              </td>
+              <td class="milestone-cell">—</td>
+              <td>Rep + Manager</td>
+              <td><button class="status-toggle" data-status="not-started" data-storage-key="w2d7">Not Started</button></td>
+            </tr>
+            <tr>
+              <td class="check-cell"><input type="checkbox" /></td>
+              <td><a href="week-2.html#day8">Day 8</a></td>
+              <td>
+                <strong>Enabling Your Buyers &amp; Facilitating the Buying Process</strong><br />
+                <span style="color:#6b7280; font-size:0.8rem;">Buying committee mapping · Champion vs. sponsor vs. blocker roles · Evaluation stage facilitation · Executive sponsor engagement · Proposal &amp; proof stage management · Competitor displacement tactics</span>
+              </td>
+              <td class="milestone-cell"><span class="badge badge-milestone">M3</span></td>
+              <td>Rep + Manager</td>
+              <td><button class="status-toggle" data-status="not-started" data-storage-key="w2d8">Not Started</button></td>
+            </tr>
+            <tr>
+              <td class="check-cell"><input type="checkbox" /></td>
+              <td><a href="week-2.html#day9">Day 9</a></td>
+              <td>
+                <strong>AI Orchestration &amp; Positioning</strong><br />
+                <span style="color:#6b7280; font-size:0.8rem;">AI augmentation vs. replacement framing · IoT infrastructure as AI data foundation · Predictive orchestration in plain language · Outcome-first positioning rule · AI value messaging by persona (CIO, CNO, CFO, CSO/Innovation)</span>
+              </td>
+              <td class="milestone-cell">—</td>
+              <td>Rep + Manager</td>
+              <td><button class="status-toggle" data-status="not-started" data-storage-key="w2d9">Not Started</button></td>
+            </tr>
+            <tr>
+              <td class="check-cell"><input type="checkbox" /></td>
+              <td><a href="week-2.html#day10">Day 10</a></td>
+              <td>
+                <strong>Sales Processes — 6 Modules</strong><br />
+                <span style="color:#6b7280; font-size:0.8rem;">M1: Sales stages &amp; deal progression · M2: SDR-to-AE handoff process · M3: Territory structure &amp; account tiering · M4: Quotes, proposals &amp; SOW management · M5: Strategic Account Plan (SAP) · M6: Domino Tier strategy</span>
+              </td>
+              <td class="milestone-cell"><span class="badge badge-milestone">M4</span></td>
+              <td>Rep + Manager</td>
+              <td><button class="status-toggle" data-status="not-started" data-storage-key="w2d10">Not Started</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- WEEK 3 -->
+    <div class="tracker-group-wrapper tracker-section-locked">
+      <div class="tracker-lock-overlay">
+        <div class="tracker-lock-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="#fff" style="width:22px;height:22px;"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" /></svg>
+        </div>
+        <p class="tracker-lock-title">Week 3 — Coming Soon</p>
+        <p class="tracker-lock-sub">Content will be available once Week 2 is complete.</p>
+      </div>
+      <div class="tracker-group-header">Week 3 — Simulation (Days 11–15)</div>
+      <div style="overflow-x:auto;">
+        <table class="tracker-table">
+          <thead>
+            <tr>
+              <th class="check-cell">✓</th>
+              <th>Day</th>
+              <th>Topic</th>
+              <th>Milestone</th>
+              <th>Owner</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="check-cell"><input type="checkbox" /></td>
+              <td>Day 11</td>
+              <td>—</td>
+              <td class="milestone-cell">—</td>
+              <td>Rep + Manager</td>
+              <td><button class="status-toggle" data-status="not-started">Not Started</button></td>
+            </tr>
+            <tr>
+              <td class="check-cell"><input type="checkbox" /></td>
+              <td>Day 12</td>
+              <td>—</td>
+              <td class="milestone-cell">—</td>
+              <td>Rep + Manager</td>
+              <td><button class="status-toggle" data-status="not-started">Not Started</button></td>
+            </tr>
+            <tr>
+              <td class="check-cell"><input type="checkbox" /></td>
+              <td>Day 13</td>
+              <td>—</td>
+              <td class="milestone-cell"><span class="badge badge-milestone">M5</span></td>
+              <td>Rep + Manager</td>
+              <td><button class="status-toggle" data-status="not-started">Not Started</button></td>
+            </tr>
+            <tr>
+              <td class="check-cell"><input type="checkbox" /></td>
+              <td>Day 14</td>
+              <td>—</td>
+              <td class="milestone-cell">—</td>
+              <td>Rep + Manager</td>
+              <td><button class="status-toggle" data-status="not-started">Not Started</button></td>
+            </tr>
+            <tr>
+              <td class="check-cell"><input type="checkbox" /></td>
+              <td>Day 15</td>
+              <td>—</td>
+              <td class="milestone-cell"><span class="badge badge-milestone">M6</span></td>
+              <td>Rep + Manager</td>
+              <td><button class="status-toggle" data-status="not-started">Not Started</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- WEEK 4 -->
+    <div class="tracker-group-wrapper tracker-section-locked">
+      <div class="tracker-lock-overlay">
+        <div class="tracker-lock-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="#fff" style="width:22px;height:22px;"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" /></svg>
+        </div>
+        <p class="tracker-lock-title">Week 4 — Coming Soon</p>
+        <p class="tracker-lock-sub">Content will be available once Week 3 is complete.</p>
+      </div>
+      <div class="tracker-group-header">Week 4 — Momentum (Days 16–20)</div>
+      <div style="overflow-x:auto;">
+        <table class="tracker-table">
+          <thead>
+            <tr>
+              <th class="check-cell">✓</th>
+              <th>Day</th>
+              <th>Topic</th>
+              <th>Milestone</th>
+              <th>Owner</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="check-cell"><input type="checkbox" /></td>
+              <td>Day 16</td>
+              <td>—</td>
+              <td class="milestone-cell">—</td>
+              <td>Rep + Manager</td>
+              <td><button class="status-toggle" data-status="not-started">Not Started</button></td>
+            </tr>
+            <tr>
+              <td class="check-cell"><input type="checkbox" /></td>
+              <td>Day 17</td>
+              <td>—</td>
+              <td class="milestone-cell">—</td>
+              <td>Rep + Manager</td>
+              <td><button class="status-toggle" data-status="not-started">Not Started</button></td>
+            </tr>
+            <tr>
+              <td class="check-cell"><input type="checkbox" /></td>
+              <td>Day 18</td>
+              <td>—</td>
+              <td class="milestone-cell"><span class="badge badge-milestone">M7</span></td>
+              <td>Rep + Manager</td>
+              <td><button class="status-toggle" data-status="not-started">Not Started</button></td>
+            </tr>
+            <tr>
+              <td class="check-cell"><input type="checkbox" /></td>
+              <td>Day 19</td>
+              <td>—</td>
+              <td class="milestone-cell">—</td>
+              <td>Rep + Manager</td>
+              <td><button class="status-toggle" data-status="not-started">Not Started</button></td>
+            </tr>
+            <tr>
+              <td class="check-cell"><input type="checkbox" /></td>
+              <td>Day 20 — Graduation</td>
+              <td>—</td>
+              <td class="milestone-cell"><span class="badge badge-milestone">M8</span></td>
+              <td>Rep + Manager</td>
+              <td><button class="status-toggle" data-status="not-started">Not Started</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- MENTOR PROGRAM -->
+    <div class="tracker-group-wrapper">
+      <div class="tracker-group-header">Mentor Program (Weeks 1–3) — 11 Activities</div>
+      <div style="overflow-x:auto;">
+        <table class="tracker-table">
+          <thead>
+            <tr>
+              <th class="check-cell">✓</th>
+              <th style="min-width:200px;">Activity</th>
+              <th>Objective</th>
+              <th style="min-width:110px;">Who Leads</th>
+              <th style="min-width:120px;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <!-- ── WEEK 1 ── -->
+            <tr style="background:#fef2f2;">
+              <td colspan="5" style="padding:0.45rem 1rem; font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.09em; color:#b91c1c;">Week 1 — Foundation &nbsp;·&nbsp; Days 2–5</td>
+            </tr>
+            <tr>
+              <td class="check-cell"><input type="checkbox" /></td>
+              <td><a href="mentor-program.html"><strong>Mentor Intro Meeting</strong></a><br /><span style="font-size:0.75rem; color:#9ca3af;">Day 2 · 1:1 Video or In-Person · 30 min</span></td>
+              <td><span style="font-size:0.82rem; color:#374151;">Break the ice, set expectations, and align on communication norms, meeting cadence, and goals for the 3 weeks ahead.</span></td>
+              <td><span style="font-size:0.8rem; color:#5b21b6; font-weight:600;">Mentor leads</span></td>
+              <td><button class="status-toggle" data-status="not-started" data-storage-key="mentor-w1d2">Not Started</button></td>
+            </tr>
+            <tr>
+              <td class="check-cell"><input type="checkbox" /></td>
+              <td><a href="mentor-program.html"><strong>Shadow a Prospecting Block</strong></a><br /><span style="font-size:0.75rem; color:#9ca3af;">Day 3 · Live or Recorded Call Block · 60 min</span></td>
+              <td><span style="font-size:0.82rem; color:#374151;">Observe real outbound calls — tone, pacing, objection handling, and how the mentor recovers from rejection in real time.</span></td>
+              <td><span style="font-size:0.8rem; color:#5b21b6; font-weight:600;">Mentor leads</span></td>
+              <td><button class="status-toggle" data-status="not-started" data-storage-key="mentor-w1d3">Not Started</button></td>
+            </tr>
+            <tr>
+              <td class="check-cell"><input type="checkbox" /></td>
+              <td><a href="mentor-program.html"><strong>Persona Perspective Session</strong></a><br /><span style="font-size:0.75rem; color:#9ca3af;">Day 4 · Informal Conversation · 30 min</span></td>
+              <td><span style="font-size:0.82rem; color:#374151;">Mentor shares real field stories about calling CNOs, BioMed directors, and CFOs — what the course teaches vs. what it actually feels like.</span></td>
+              <td><span style="font-size:0.8rem; color:#5b21b6; font-weight:600;">Mentor leads</span></td>
+              <td><button class="status-toggle" data-status="not-started" data-storage-key="mentor-w1d4">Not Started</button></td>
+            </tr>
+            <tr>
+              <td class="check-cell"><input type="checkbox" /></td>
+              <td><a href="mentor-program.html"><strong>Week 1 Self-Reflection &amp; Check-in</strong></a><br /><span style="font-size:0.75rem; color:#9ca3af;">Day 5 · Self-Reflection + 1:1 · 20 min</span></td>
+              <td><span style="font-size:0.82rem; color:#374151;">What did you learn? What's still confusing? What feels intimidating about Week 2? Mentee submits a 5-bullet reflection before the call.</span></td>
+              <td><span style="font-size:0.8rem; color:#b91c1c; font-weight:600;">Mentee leads</span></td>
+              <td><button class="status-toggle" data-status="not-started" data-storage-key="mentor-w1d5">Not Started</button></td>
+            </tr>
+
+            <!-- ── WEEK 2 ── -->
+            <tr style="background:#f5f3ff;">
+              <td colspan="5" style="padding:0.45rem 1rem; font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.09em; color:#5b21b6;">Week 2 — Execution &nbsp;·&nbsp; Days 7–10</td>
+            </tr>
+            <tr>
+              <td class="check-cell"><input type="checkbox" /></td>
+              <td><a href="mentor-program.html"><strong>Live Deal Walkthrough</strong></a><br /><span style="font-size:0.75rem; color:#9ca3af;">Day 7 · Pipeline Review · 45 min</span></td>
+              <td><span style="font-size:0.82rem; color:#374151;">Mentor walks through 1–2 active deals: how they got in, where it stands, what's blocking, and what the next move is. A real pipeline conversation — not a role play.</span></td>
+              <td><span style="font-size:0.8rem; color:#5b21b6; font-weight:600;">Mentor leads</span></td>
+              <td><button class="status-toggle" data-status="not-started" data-storage-key="mentor-w2d7">Not Started</button></td>
+            </tr>
+            <tr>
+              <td class="check-cell"><input type="checkbox" /></td>
+              <td><a href="mentor-program.html"><strong>Co-Pilot a Discovery Call</strong></a><br /><span style="font-size:0.75rem; color:#9ca3af;">Day 8 · Live Discovery Call · 45–60 min</span></td>
+              <td><span style="font-size:0.82rem; color:#374151;">Mentee joins a real discovery call silently. Listen for question structure, use of silence, and pain quantification. Do not speak unless the mentor asks.</span></td>
+              <td><span style="font-size:0.8rem; color:#5b21b6; font-weight:600;">Mentor leads</span></td>
+              <td><button class="status-toggle" data-status="not-started" data-storage-key="mentor-w2d8">Not Started</button></td>
+            </tr>
+            <tr>
+              <td class="check-cell"><input type="checkbox" /></td>
+              <td><a href="mentor-program.html"><strong>Mentee Leads a Mock Discovery Call</strong></a><br /><span style="font-size:0.75rem; color:#9ca3af;">Day 9 · Live Call Block · 60 min</span></td>
+              <td><span style="font-size:0.82rem; color:#374151;">First time in the seat — mentee runs a mock or live cold call while the mentor listens silently. Mentor intervenes only to protect the relationship.</span></td>
+              <td><span style="font-size:0.8rem; color:#b91c1c; font-weight:600;">Mentee leads</span></td>
+              <td><button class="status-toggle" data-status="not-started" data-storage-key="mentor-w2d9">Not Started</button></td>
+            </tr>
+            <tr>
+              <td class="check-cell"><input type="checkbox" /></td>
+              <td><a href="mentor-program.html"><strong>Mid-Program Pulse Survey</strong></a><br /><span style="font-size:0.75rem; color:#9ca3af;">Day 10 · Written Survey · 10 min</span></td>
+              <td><span style="font-size:0.82rem; color:#374151;">Structured check-in for both parties: is the relationship working? Does the mentee have what they need? Both submit separate surveys to enablement and the sales manager. Not optional.</span></td>
+              <td><span style="font-size:0.8rem; color:#166534; font-weight:600;">Both</span></td>
+              <td><button class="status-toggle" data-status="not-started" data-storage-key="mentor-w2d10">Not Started</button></td>
+            </tr>
+
+            <!-- ── WEEK 3 ── -->
+            <tr style="background:#f0fdf4;">
+              <td colspan="5" style="padding:0.45rem 1rem; font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.09em; color:#166534;">Week 3 — Independence &nbsp;·&nbsp; Days 13–15+</td>
+            </tr>
+            <tr>
+              <td class="check-cell"><input type="checkbox" /></td>
+              <td><a href="mentor-program.html"><strong>Account Strategy Session</strong></a><br /><span style="font-size:0.75rem; color:#9ca3af;">Day 13 · Working Session · 60 min</span></td>
+              <td><span style="font-size:0.82rem; color:#374151;">Co-build an outreach strategy for the mentee's top 3 target accounts — stakeholder mapping, messaging angles, cadence design, and timing. Mentee drives; mentor challenges.</span></td>
+              <td><span style="font-size:0.8rem; color:#166534; font-weight:600;">Both</span></td>
+              <td><button class="status-toggle" data-status="not-started" data-storage-key="mentor-w3d13">Not Started</button></td>
+            </tr>
+            <tr>
+              <td class="check-cell"><input type="checkbox" /></td>
+              <td><a href="mentor-program.html"><strong>Reverse Shadow — Full Call</strong></a><br /><span style="font-size:0.75rem; color:#9ca3af;">Day 14 · Live Full Call · 45 min</span></td>
+              <td><span style="font-size:0.82rem; color:#374151;">Mentee runs a complete call entirely independently. Mentor observes silently and completes the final call assessment. Both review it together immediately after — specific, honest, constructive.</span></td>
+              <td><span style="font-size:0.8rem; color:#b91c1c; font-weight:600;">Mentee leads</span></td>
+              <td><button class="status-toggle" data-status="not-started" data-storage-key="mentor-w3d14">Not Started</button></td>
+            </tr>
+            <tr>
+              <td class="check-cell"><input type="checkbox" /></td>
+              <td><a href="mentor-program.html"><strong>Program Certification &amp; Ongoing Relationship</strong></a><br /><span style="font-size:0.75rem; color:#9ca3af;">Day 15+ · Structured Close · 30 min</span></td>
+              <td><span style="font-size:0.82rem; color:#374151;">Mentee presents their 30-day independent action plan. Mentor and enablement co-sign and provide final guidance. The formal program ends; the relationship continues.</span></td>
+              <td><span style="font-size:0.8rem; color:#166534; font-weight:600;">Both + Enablement</span></td>
+              <td><button class="status-toggle" data-status="not-started" data-storage-key="mentor-w3d15">Not Started</button></td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /.container -->
+</main>
+
+<footer>
+  <div class="container">
+    <p>Kontakt.io Revenue Enablement &nbsp;|&nbsp; <a href="index.html">Program Overview</a> &nbsp;|&nbsp; <a href="milestones.html">Milestones</a></p>
+  </div>
+</footer>
+
+<script src="scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Objection Library | Kontakt.io Onboarding</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .obj-card { background:#fff; border:1px solid #e5e7eb; border-radius:var(--radius); padding:1.2rem 1.3rem; display:flex; flex-direction:column; gap:0.8rem; transition:box-shadow 0.18s; }
+    .obj-card:hover { box-shadow:0 4px 18px rgba(0,0,0,0.08); }
+    .obj-quote { font-size:0.97rem; font-style:italic; font-weight:600; color:#1f2937; line-height:1.55; margin:0; }
+    .obj-section-label { font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.09em; color:#9ca3af; margin:0 0 0.3rem; }
+    .obj-response { font-size:0.83rem; color:#374151; line-height:1.7; margin:0; }
+    .obj-coaching { font-size:0.81rem; color:#6b7280; line-height:1.68; margin:0.45rem 0 0; padding:0.65rem 0.85rem; background:#f9fafb; border-radius:6px; border-left:3px solid #e5e7eb; }
+    details > summary { font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#9ca3af; cursor:pointer; list-style:none; user-select:none; display:flex; align-items:center; gap:0.35rem; }
+    details > summary::before { content:'▸'; font-size:0.7rem; transition:transform 0.15s; }
+    details[open] > summary::before { transform:rotate(90deg); }
+    details > summary::-webkit-details-marker { display:none; }
+    .cat-pill { font-size:0.67rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; border-radius:999px; padding:0.18rem 0.65rem; }
+    .persona-pill { font-size:0.72rem; font-weight:600; border-radius:999px; padding:0.18rem 0.65rem; }
+    .stage-pill { font-size:0.72rem; font-weight:600; border-radius:999px; padding:0.18rem 0.65rem; background:#f1f5f9; color:#475569; }
+    .filter-bar { display:flex; flex-wrap:wrap; gap:0.6rem; align-items:center; background:#fff; border:1px solid #e5e7eb; border-radius:var(--radius); padding:0.85rem 1rem; margin-bottom:1.25rem; position:sticky; top:66px; z-index:50; box-shadow:0 2px 8px rgba(0,0,0,0.05); }
+    .filter-bar select, .filter-bar input { font-size:0.82rem; border:1px solid #d1d5db; border-radius:6px; padding:0.38rem 0.6rem; color:#374151; background:#fff; outline:none; }
+    .filter-bar select:focus, .filter-bar input:focus { border-color:var(--color-plum); }
+    #obj-count { font-size:0.78rem; color:#9ca3af; margin-left:auto; }
+    .obj-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(370px,1fr)); gap:1rem; }
+    .section-divider { grid-column:1/-1; display:flex; align-items:center; gap:0.75rem; margin:0.5rem 0 0.25rem; }
+    .section-divider span { font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:#9ca3af; white-space:nowrap; }
+    .section-divider::after { content:''; flex:1; height:1px; background:#e5e7eb; }
+    .no-results { grid-column:1/-1; text-align:center; padding:3rem 1rem; color:#9ca3af; font-size:0.9rem; display:none; }
+    @media(max-width:600px) { .obj-grid { grid-template-columns:1fr; } .filter-bar { top:0; } }
+  </style>
+</head>
+<body>
+
+<nav class="main-nav">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">
+      <img src="https://kontakt.io/app/themes/juniper-theme-new/dist/logo.2dc4261a.svg" alt="Kontakt.io" style="height:26px; display:block;" />
+      <span class="logo-subtitle">Revenue Enablement</span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="index.html">Program Overview</a></li>
+      <li class="nav-dropdown">
+        <button class="dropdown-toggle">Week 1 &#x25BE;</button>
+        <ul class="dropdown-menu week-nav-menu">
+          <li class="nav-day-item"><a href="week-1.html#day1">Day 1 &#x2014; Who is Kontakt.io?</a></li>
+          <li class="nav-day-item" data-unlock-key="kontakt-w1d1_quiz" data-unlock-val="done"><a href="week-1.html#day2">Day 2 &#x2014; The Hospital Crisis</a></li>
+          <li class="nav-day-item" data-unlock-key="kontakt-w1d2_quiz" data-unlock-val="done"><a href="week-1.html#day3">Day 3 &#x2014; Platform &amp; Use Cases</a></li>
+          <li class="nav-day-item" data-unlock-key="kontakt-w1d3_quiz" data-unlock-val="done"><a href="week-1.html#day4">Day 4 &#x2014; Persona Mastery</a></li>
+          <li class="nav-day-item" data-unlock-key="kontakt-w1d4_quiz" data-unlock-val="done"><a href="week-1.html#day5">Day 5 &#x2014; KIO Beyond RTLS</a></li>
+        </ul>
+      </li>
+      <li class="nav-dropdown">
+        <button class="dropdown-toggle">Week 2 &#x25BE;</button>
+        <ul class="dropdown-menu week-nav-menu">
+          <li class="nav-day-item" data-unlock-key="kontakt-w1d5_quiz" data-unlock-val="done"><a href="week-2.html#day6">Day 6 &#x2014; Selling into Healthcare</a></li>
+          <li class="nav-day-item" data-unlock-key="kontakt-w2d6_quiz" data-unlock-val="done"><a href="week-2.html#day7">Day 7 &#x2014; Strategic Conversations</a></li>
+          <li class="nav-day-item" data-unlock-key="kontakt-w2d7_quiz" data-unlock-val="done"><a href="week-2.html#day8">Day 8 &#x2014; Enabling Your Buyers</a></li>
+          <li class="nav-day-item" data-unlock-key="kontakt-w2d8_quiz" data-unlock-val="done"><a href="week-2.html#day9">Day 9 &#x2014; AI Orchestration</a></li>
+          <li class="nav-day-item" data-unlock-key="kontakt-w2d9" data-unlock-val="complete"><a href="week-2.html#day10">Day 10 &#x2014; Sales Processes</a></li>
+        </ul>
+      </li>
+      <li><a href="week-3.html">Week 3</a></li>
+      <li><a href="week-4.html">Week 4</a></li>
+      <li class="nav-dropdown">
+        <button class="dropdown-toggle">Role Tracks ▾</button>
+        <ul class="dropdown-menu">
+          <li><span style="display:flex;align-items:center;justify-content:space-between;padding:0.35rem 1rem;color:#9ca3af;cursor:not-allowed;pointer-events:none;user-select:none;">AE Track<span style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;background:#e5e7eb;color:#9ca3af;padding:0.1rem 0.45rem;border-radius:999px;margin-left:0.5rem;">Soon</span></span></li>
+          <li><span style="display:flex;align-items:center;justify-content:space-between;padding:0.35rem 1rem;color:#9ca3af;cursor:not-allowed;pointer-events:none;user-select:none;">SDR Track<span style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;background:#e5e7eb;color:#9ca3af;padding:0.1rem 0.45rem;border-radius:999px;margin-left:0.5rem;">Soon</span></span></li>
+          <li><span style="display:flex;align-items:center;justify-content:space-between;padding:0.35rem 1rem;color:#9ca3af;cursor:not-allowed;pointer-events:none;user-select:none;">CSM Track<span style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;background:#e5e7eb;color:#9ca3af;padding:0.1rem 0.45rem;border-radius:999px;margin-left:0.5rem;">Soon</span></span></li>
+        </ul>
+      </li>
+      <li class="nav-dropdown">
+        <button class="dropdown-toggle">Resources ▾</button>
+        <ul class="dropdown-menu">
+          <li><a href="milestones.html">Milestones</a></li>
+          <li><a href="objection-library.html">Objection Library</a></li>
+          <li><a href="mentor-program.html">Mentor Program</a></li>
+          <li><a href="status-tracker.html">Master Status Tracker</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="container">
+    <h1>Objection Library</h1>
+    <p class="subtitle">Every objection surfaced across the program — with scripted responses, coaching notes, and filters by role, persona, and deal stage.</p>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+
+    <!-- HOW TO USE -->
+    <div class="card" style="margin-bottom:1.5rem;">
+      <h3 style="margin:0 0 0.75rem;">How to Use This Library</h3>
+      <p style="font-size:0.87rem; color:#374151; line-height:1.65; margin:0 0 1rem;">Every objection here was pulled directly from course content across Weeks 1 and 2 — these are not hypothetical. Use this library three ways:</p>
+      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:0.75rem;">
+        <div style="background:#f8f5ff; border-radius:var(--radius); padding:0.85rem 1rem;">
+          <p style="font-weight:700; font-size:0.85rem; color:var(--color-plum); margin:0 0 0.3rem;">Pre-Call Prep</p>
+          <p style="font-size:0.81rem; color:#374151; margin:0; line-height:1.6;">Filter by persona to anticipate what objections your buyer is most likely to raise before you get on the call.</p>
+        </div>
+        <div style="background:#f8f5ff; border-radius:var(--radius); padding:0.85rem 1rem;">
+          <p style="font-weight:700; font-size:0.85rem; color:var(--color-plum); margin:0 0 0.3rem;">Post-Call Debrief</p>
+          <p style="font-size:0.81rem; color:#374151; margin:0; line-height:1.6;">Search for an objection you heard on a call. Read the coaching note to understand the root cause and improve your next attempt.</p>
+        </div>
+        <div style="background:#f8f5ff; border-radius:var(--radius); padding:0.85rem 1rem;">
+          <p style="font-weight:700; font-size:0.85rem; color:var(--color-plum); margin:0 0 0.3rem;">Role Play Practice</p>
+          <p style="font-size:0.81rem; color:#374151; margin:0; line-height:1.6;">Filter by stage and run through every objection at a specific deal phase. Practice responding until each answer lands in under 30 seconds without notes.</p>
+        </div>
+        <div style="background:#fff8e1; border-radius:var(--radius); padding:0.85rem 1rem;">
+          <p style="font-weight:700; font-size:0.85rem; color:#92400e; margin:0 0 0.3rem;">A Note on Responses</p>
+          <p style="font-size:0.81rem; color:#374151; margin:0; line-height:1.6;">Scripted responses are starting points — adapt them to your voice. The structure matters more than the exact words. Never read them verbatim on a call.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FILTER BAR -->
+    <div class="filter-bar">
+      <input type="text" id="obj-search" placeholder="Search objections..." style="min-width:180px;" />
+      <select id="obj-cat">
+        <option value="">All Categories</option>
+        <option value="cold-call">Cold Call</option>
+        <option value="discovery">Discovery</option>
+        <option value="technical">Technical / IT</option>
+        <option value="budget">Budget &amp; ROI</option>
+        <option value="proposal">Proposal / Stakeholder</option>
+        <option value="close">Negotiation / Close</option>
+        <option value="post-sale">Post-Sale / CSM</option>
+      </select>
+      <select id="obj-persona">
+        <option value="">All Personas</option>
+        <option value="sdr">SDR</option>
+        <option value="ae">AE</option>
+        <option value="cno">CNO / Clinical</option>
+        <option value="cio">CIO / IT</option>
+        <option value="cfo">CFO / Finance</option>
+        <option value="cmio">CMIO / CNIO</option>
+        <option value="vac">VAC / Procurement</option>
+        <option value="csuite">C-Suite</option>
+        <option value="csm">CSM</option>
+      </select>
+      <select id="obj-stage">
+        <option value="">All Stages</option>
+        <option value="cold-call">Cold Call</option>
+        <option value="discovery">Discovery</option>
+        <option value="technical-eval">Technical Eval</option>
+        <option value="proposal">Proposal</option>
+        <option value="negotiation">Negotiation / Close</option>
+        <option value="post-sale">Post-Sale</option>
+      </select>
+      <button onclick="resetFilters()" style="font-size:0.8rem; background:none; border:1px solid #d1d5db; border-radius:6px; padding:0.38rem 0.75rem; cursor:pointer; color:#6b7280;">Reset</button>
+      <span id="obj-count">Showing 38 of 38</span>
+    </div>
+
+    <!-- OBJECTION GRID -->
+    <div class="obj-grid" id="obj-grid">
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- COLD CALL                                   -->
+      <!-- ═══════════════════════════════════════════ -->
+      <div class="section-divider" data-section="cold-call"><span>Cold Call</span></div>
+
+      <!-- 1 -->
+      <div class="obj-card" data-cat="cold-call" data-persona="sdr" data-stage="cold-call" style="border-left:4px solid var(--color-red);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#fef2f2; color:#b91c1c;">Cold Call</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#fdf2f8; color:#9d174d;">SDR</span>
+            <span class="stage-pill">Cold Call</span>
+          </div>
+        </div>
+        <p class="obj-quote">"Just send me an email."</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">"Absolutely — I will. Quick question before I let you go: is locating mobile equipment between units something that comes up on your floor?" If yes: you have a qualified conversation. If no: log it and move on.</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">This is a brush-off, not a genuine objection — they expect you to hang up. The one-question technique earns 30 more seconds and qualifies pain simultaneously. The question must be use-case specific and pain-surfacing — not "can I set up a meeting." Do NOT simply thank them and hang up.</p>
+        </details>
+      </div>
+
+      <!-- 2 -->
+      <div class="obj-card" data-cat="cold-call" data-persona="sdr" data-stage="cold-call" style="border-left:4px solid var(--color-red);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#fef2f2; color:#b91c1c;">Cold Call</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#fdf2f8; color:#9d174d;">SDR</span>
+            <span class="stage-pill">Cold Call</span>
+          </div>
+        </div>
+        <p class="obj-quote">"We're happy with what we have."</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">"That's good to hear. Can I ask: when you say 'happy,' are you measuring against where you were before, or against where peer hospitals are benchmarking on response times and asset utilization? Most systems we work with felt the same way — until they saw what a comparable health system was doing with the same data. Is that conversation worth 10 minutes?"</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">Signals status quo or incumbent. Don't challenge the happiness directly — reframe the benchmark. They may be happy relative to their own history but behind the market. The peer comparison is the wedge.</p>
+        </details>
+      </div>
+
+      <!-- 3 -->
+      <div class="obj-card" data-cat="cold-call" data-persona="sdr" data-stage="cold-call" style="border-left:4px solid var(--color-red);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#fef2f2; color:#b91c1c;">Cold Call</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#fdf2f8; color:#9d174d;">SDR</span>
+            <span class="stage-pill">Cold Call</span>
+          </div>
+        </div>
+        <p class="obj-quote">"We're happy with our current vendor."</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">"That's great — who are you with, if you don't mind me asking?" [They tell you.] "How long have you been live?" Under 2 years: log and nurture. 3+ years: "Most systems at that stage are starting to evaluate whether the ROI has held up. Is that a conversation happening at [Hospital Name]?"</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">Time-since-deployment is the qualifying variable. Under 2 years = too early, genuine DQ. 3+ years = ROI honeymoon may be fading. Always ask for the implementation date and log it precisely — that date determines your re-engage window.</p>
+        </details>
+      </div>
+
+      <!-- 4 -->
+      <div class="obj-card" data-cat="cold-call" data-persona="sdr" data-stage="cold-call" style="border-left:4px solid var(--color-red);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#fef2f2; color:#b91c1c;">Cold Call</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#fdf2f8; color:#9d174d;">SDR</span>
+            <span class="stage-pill">Cold Call</span>
+          </div>
+        </div>
+        <p class="obj-quote">"This isn't a priority right now."</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">"Totally fair — I appreciate you being straight with me. Can I ask what is a priority?" [Listen.] "The reason I ask is that real-time location tends to sit underneath a lot of other things health systems are focused on right now — patient safety scores, equipment costs, nurse retention. If any of those are on your list, there may be a connection worth a short conversation. If not, I'll let you go."</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">"Not a priority" is a deflection in most cases. The response works by making the prospect name their actual priorities — then connecting RTLS to those priorities. The rep who can draw the line from "nurse retention" to RTLS in one sentence wins the call extension.</p>
+        </details>
+      </div>
+
+      <!-- 5 -->
+      <div class="obj-card" data-cat="cold-call" data-persona="sdr" data-stage="cold-call" style="border-left:4px solid var(--color-red);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#fef2f2; color:#b91c1c;">Cold Call</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#fdf2f8; color:#9d174d;">SDR</span>
+            <span class="stage-pill">Cold Call</span>
+          </div>
+        </div>
+        <p class="obj-quote">"We don't have budget."</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">"Completely understand — when does your capital planning window typically open?" Log the answer in Salesforce. Add to a nurture cadence timed to re-engage 60 days before that window opens.</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">Usually means "not in cycle," not "never." Health systems budget 12–18 months in advance. The one thing to do: get the budget cycle date. This converts a dead-end conversation into a calendared re-engagement. Do not disengage.</p>
+        </details>
+      </div>
+
+      <!-- 6 -->
+      <div class="obj-card" data-cat="cold-call" data-persona="sdr" data-stage="cold-call" style="border-left:4px solid var(--color-red);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#fef2f2; color:#b91c1c;">Cold Call</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#fdf2f8; color:#9d174d;">SDR</span>
+            <span class="stage-pill">Cold Call</span>
+          </div>
+        </div>
+        <p class="obj-quote">"I'm not the right person."</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">"I appreciate that — who would you say typically owns decisions around clinical workflow technology at [Hospital Name]?" If they give you a name: "Would you be open to a quick introduction, or should I reach out to them directly?" Always log the contact name in Salesforce regardless of outcome.</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">Can be true — or a polite exit. Find out which. If they give you a name, the deflection becomes a warm referral. If they can't name anyone, it's a polite exit — log and move on cleanly.</p>
+        </details>
+      </div>
+
+      <!-- 7 -->
+      <div class="obj-card" data-cat="cold-call" data-persona="sdr" data-stage="cold-call" style="border-left:4px solid var(--color-red);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#fef2f2; color:#b91c1c;">Cold Call — Hard DQ</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#fdf2f8; color:#9d174d;">SDR</span>
+            <span class="stage-pill">Cold Call</span>
+          </div>
+        </div>
+        <p class="obj-quote">"We just went live with [Competitor] — we're really happy with it."</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">"That's great timing for you — congratulations on the deployment. I won't take more of your time. I'll put a note to check back in about a year when you've had some time to evaluate performance. Is there a better contact to reconnect with then?" Log implementation date, competitor name, and contact. Set a 12-month re-engage task.</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">Under 1 year post-implementation = hard DQ. Do not continue qualifying. Exit cleanly and log precisely. "6 months to see if the honeymoon is fading" is wrong — 12 months is the minimum re-engage window. A clean DQ is better than a weak SQL that wastes pipeline capacity.</p>
+        </details>
+      </div>
+
+      <!-- 8 -->
+      <div class="obj-card" data-cat="cold-call" data-persona="sdr" data-stage="cold-call" style="border-left:4px solid var(--color-red);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#fef2f2; color:#b91c1c;">Cold Call</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#fdf2f8; color:#9d174d;">SDR</span>
+            <span class="stage-pill">Cold Call</span>
+          </div>
+        </div>
+        <p class="obj-quote">"We looked at this two years ago — what's different now?"</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">"Two years ago — do you remember what the blocker was? Was it budget timing, a technology concern, or something else internally?" Then: "The reason I'm calling is that BioMed teams your size are still dealing with [X problem] — is that something you're still navigating, or has it changed?"</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">She already evaluated this — which means the pain is real. Diagnose the prior blocker first; don't pitch what's changed. Retreating to "email in 6 months" is wrong — hold your ground for 60 more seconds. One diagnostic question now is worth more than 10 follow-up emails.</p>
+        </details>
+      </div>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- DISCOVERY                                   -->
+      <!-- ═══════════════════════════════════════════ -->
+      <div class="section-divider" data-section="discovery"><span>Discovery</span></div>
+
+      <!-- 9 -->
+      <div class="obj-card" data-cat="discovery" data-persona="cno,ae,sdr" data-stage="discovery" style="border-left:4px solid var(--color-plum);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#f5f3ff; color:#5b21b6;">Discovery</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#f0fdf4; color:#166534;">CNO</span>
+            <span class="stage-pill">Discovery</span>
+          </div>
+        </div>
+        <p class="obj-quote">"We already track everything with barcodes. Works fine for us."</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">Ask first: "How long does it take to locate a specific pump when a nurse needs one urgently?" Let her describe the gap herself. After she does: "Barcodes show where something was — the last scan. RTLS shows where it is right now, automatically, without anyone scanning anything." The distinction lands harder after she's described the problem in her own words.</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">Do NOT lead with the $14B productivity stat as an opener when she just said "works fine" — she'll hear it as a generic industry claim. Discovery first. Stats earn their weight after you've established her hospital has the same problem.</p>
+        </details>
+      </div>
+
+      <!-- 10 -->
+      <div class="obj-card" data-cat="discovery" data-persona="cno,cio,ae" data-stage="discovery" style="border-left:4px solid var(--color-plum);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#f5f3ff; color:#5b21b6;">Discovery</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#f0fdf4; color:#166534;">CNO</span>
+            <span class="persona-pill" style="background:#eff6ff; color:#1e40af;">CIO</span>
+            <span class="stage-pill">Discovery</span>
+          </div>
+        </div>
+        <p class="obj-quote">"We tried RTLS before and it didn't stick."</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">"That's really important context — thank you. Can I ask: what happened? Was it a technology issue, an adoption issue, a change management issue — or something else? Every failed RTLS implementation I've seen has a different root cause, and until I know yours, I can't honestly tell you whether what we do would be different."</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">A prior failed implementation means the pain is real but so is the skepticism. Do NOT immediately defend Kontakt.io. Diagnose the failure first. Infrastructure failure → lead with deployment model. Adoption failure → lead with workflow fit and implementation process. Match the remedy to the actual wound.</p>
+        </details>
+      </div>
+
+      <!-- 11 -->
+      <div class="obj-card" data-cat="discovery" data-persona="cio,ae" data-stage="discovery" style="border-left:4px solid var(--color-plum);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#f5f3ff; color:#5b21b6;">Discovery</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#eff6ff; color:#1e40af;">CIO</span>
+            <span class="stage-pill">Discovery</span>
+          </div>
+        </div>
+        <p class="obj-quote">"It's too complex to implement. We're too large, too complex."</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">"We deploy in 10 days on your existing network. Legacy RTLS required $500K in proprietary cabling — we eliminated that entirely. HCA deployed it themselves, during COVID, in days. What's your implementation concern specifically?"</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">Pre-empt this objection before it's raised — don't wait for them to surface it. Lead with speed and infrastructure simplicity from the first meeting. The HCA proof point is specific and hard to argue with.</p>
+        </details>
+      </div>
+
+      <!-- 12 -->
+      <div class="obj-card" data-cat="discovery" data-persona="cno,ae" data-stage="discovery" style="border-left:4px solid var(--color-plum);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#f5f3ff; color:#5b21b6;">Discovery</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#f0fdf4; color:#166534;">CNO</span>
+            <span class="stage-pill">Discovery</span>
+          </div>
+        </div>
+        <p class="obj-quote">"Our nurses will never agree to wear another badge."</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">"What happened last time a badge rollout didn't land?" [Listen.] "Was it poor communication, no visible benefit, surveillance concerns?" Then reframe: "Which nurse wouldn't want a button she can push when a patient becomes aggressive — that tells security exactly where she is?" Position as a personal safety device, not hospital surveillance.</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">"Our nurses will never" is almost always a prior failed rollout speaking. Validate that experience first, then bring adoption data. The 90% adoption stat lands harder once she feels heard. The surveillance-vs-safety reframe is the core long-term positioning move for this objection.</p>
+        </details>
+      </div>
+
+      <!-- 13 -->
+      <div class="obj-card" data-cat="discovery" data-persona="cio,ae" data-stage="discovery" style="border-left:4px solid var(--color-plum);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#f5f3ff; color:#5b21b6;">Discovery</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#eff6ff; color:#1e40af;">CIO</span>
+            <span class="stage-pill">Discovery</span>
+          </div>
+        </div>
+        <p class="obj-quote">"My team is stretched thin. We can't take on a new infrastructure project."</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">"Which Wi-Fi vendor are you running?" [If Cisco or Aruba:] "The connector is pre-built. Portal Lights mount on existing APs. KIO Cloud is managed by us — not your IT team. This runs on what you already own." Then: "Kontakt.io deploys in 10 days and requires minimal IT involvement after go-live."</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">IT VPs don't block innovation — they block complexity. Proof over promise: name their specific infrastructure. Showing that Kontakt.io already knows their environment changes the conversation from "another project" to "this basically runs itself."</p>
+        </details>
+      </div>
+
+      <!-- 14 -->
+      <div class="obj-card" data-cat="discovery" data-persona="ae,sdr" data-stage="discovery" style="border-left:4px solid var(--color-plum);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#f5f3ff; color:#5b21b6;">Discovery</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#fef3c7; color:#92400e;">AE / SDR</span>
+            <span class="stage-pill">Prospecting</span>
+          </div>
+        </div>
+        <p class="obj-quote">"Just send me the pricing — I don't have time for a full discovery call."</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">"I can get you a number — and I want to make sure it's based on your actual situation, not a generic list price. Pricing varies significantly based on facility size and use cases. Can I ask you two quick questions? How many beds/facilities, and is this primarily asset tracking, staff safety, or both?"</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">Pricing without discovery means you're quoting a number for a problem you don't yet understand. You'll lose to whoever quotes lowest, even if your solution is a better fit. Two qualification questions turn this into a real discovery call and prevent premature price anchoring.</p>
+        </details>
+      </div>
+
+      <!-- 15 -->
+      <div class="obj-card" data-cat="discovery" data-persona="ae" data-stage="discovery" style="border-left:4px solid var(--color-plum);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#f5f3ff; color:#5b21b6;">Discovery</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#fef3c7; color:#92400e;">AE</span>
+            <span class="stage-pill">Discovery</span>
+          </div>
+        </div>
+        <p class="obj-quote">"We just signed with a competitor 18 months ago."</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">"I appreciate you being upfront — that's helpful context. I'm not going to try to talk you out of a contract you're in. I'm more curious: 18 months in, how would you grade the solution on the clinical outcomes side — specifically the things that drove you to buy it in the first place?" If graded poorly: "Would it be worth a conversation in 6 months when your renewal window is opening?"</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">Often a time objection disguised as a competitor objection. "18 months ago" means they may be starting to feel buyer's remorse — or they want you to go away. Diagnose which one before deciding how to respond. Under 1 year = DQ. 18 months+ = open the conversation carefully.</p>
+        </details>
+      </div>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- TECHNICAL / IT                              -->
+      <!-- ═══════════════════════════════════════════ -->
+      <div class="section-divider" data-section="technical"><span>Technical / IT</span></div>
+
+      <!-- 16 -->
+      <div class="obj-card" data-cat="technical" data-persona="cio,cmio" data-stage="technical-eval" style="border-left:4px solid #0284c7;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#e0f2fe; color:#0369a1;">Technical / IT</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#eff6ff; color:#1e40af;">CIO / CMIO</span>
+            <span class="stage-pill">Technical Eval</span>
+          </div>
+        </div>
+        <p class="obj-quote">"Won't Epic integration require months of work?"</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">"We use Epic's published FHIR R4 APIs — no custom code on your IT side, no EHR customization. Your Epic team approves it in the standard integration review, same as any approved vendor. Typical timeline: 3 days, not 3 months."</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">Always close with the specific number: "3 days, not 3 months." Use the softer FHIR explanation in early discovery; use the sharper number when the buyer is further along in evaluation. Listed on the Epic App Showroom — this is not a custom integration.</p>
+        </details>
+      </div>
+
+      <!-- 17 -->
+      <div class="obj-card" data-cat="technical" data-persona="cio" data-stage="technical-eval" style="border-left:4px solid #0284c7;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#e0f2fe; color:#0369a1;">Technical / IT</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#eff6ff; color:#1e40af;">CIO / CISO</span>
+            <span class="stage-pill">Technical Eval</span>
+          </div>
+        </div>
+        <p class="obj-quote">"Adding IoT to our network creates security exposure and maintenance burden we don't have headcount for."</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">Front-load compliance credentials at the first IT meeting — pre-completed CAIQ, SOC 2 Type II, HIPAA certification, pen-test evidence. "We've done 500+ hospital deployments with no breach incidents. And maintenance burden: KIO Cloud is managed by Kontakt.io, not your team."</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">Security objections from IT are process objections, not personal ones. Their job is to say no to unmanaged risk. Your job is to arrive with documentation that removes that risk before they ask for it. Do NOT wait for the CIO to initiate the security review.</p>
+        </details>
+      </div>
+
+      <!-- 18 -->
+      <div class="obj-card" data-cat="technical" data-persona="cio" data-stage="discovery" style="border-left:4px solid #0284c7;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#e0f2fe; color:#0369a1;">Technical / IT</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#eff6ff; color:#1e40af;">CIO</span>
+            <span class="stage-pill">Discovery</span>
+          </div>
+        </div>
+        <p class="obj-quote">"We're not buying new infrastructure."</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">"Our platform runs on your existing Cisco/Aruba/Juniper infrastructure — no new cabling, no proprietary hardware, no parallel network. Cloud-native, no on-prem servers. FHIR R4 — no custom HL7 build. Listed on the Epic App Showroom. There is no new infrastructure."</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">Do NOT respond with a pilot offer or cost minimization — that concedes the premise. The correct move is to reframe entirely: "There is no new infrastructure." Say it directly. Don't soften it.</p>
+        </details>
+      </div>
+
+      <!-- 19 -->
+      <div class="obj-card" data-cat="technical" data-persona="cio,ae" data-stage="discovery" style="border-left:4px solid #0284c7;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#e0f2fe; color:#0369a1;">Technical / IT</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#eff6ff; color:#1e40af;">CIO / Champion</span>
+            <span class="stage-pill">Discovery</span>
+          </div>
+        </div>
+        <p class="obj-quote">"Our IT department will never approve a new IoT layer."</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">"That's usually about the InfoSec review process, not the infrastructure. We've been through security reviews at 40+ health systems. We have a pre-completed CAIQ packet and pen-test results ready to send to your InfoSec team before the first call. Would it be worth a 20-minute technical call between our security team and yours?"</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">"IT will never approve" is often the champion reporting their fear, not an actual IT position. The move is to offer a peer-to-peer IT call that bypasses the champion's worry and lets IT evaluate directly. 40+ health system references is the credibility anchor.</p>
+        </details>
+      </div>
+
+      <!-- 20 -->
+      <div class="obj-card" data-cat="technical" data-persona="cio" data-stage="proposal" style="border-left:4px solid #0284c7;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#e0f2fe; color:#0369a1;">Technical / IT</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#eff6ff; color:#1e40af;">CISO / IT Security</span>
+            <span class="stage-pill">Proposal</span>
+          </div>
+        </div>
+        <p class="obj-quote">"We need to complete our security review before this can go further — it takes 6–8 weeks minimum."</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">Treat as a MAP milestone, not a stall. Provide the full security packet proactively to compress the review: pre-completed CAIQ, SOC 2 Type II report, HIPAA certification, pen-test evidence, BAA draft. Offer to join the security review call directly.</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">Build the security review timeline into the Mutual Action Plan from Day 1. InfoSec review alone can add 60–90 days — discover this before the 80% stage mark to avoid late-stage surprises.</p>
+        </details>
+      </div>
+
+      <!-- 21 -->
+      <div class="obj-card" data-cat="technical" data-persona="cmio" data-stage="technical-eval" style="border-left:4px solid #0284c7;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#e0f2fe; color:#0369a1;">Technical / IT</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#f3e8ff; color:#6b21a8;">CMIO / CNIO</span>
+            <span class="stage-pill">Technical Eval</span>
+          </div>
+        </div>
+        <p class="obj-quote">"Walk me through exactly how this integrates with Epic. Who owns the data at rest and in transit?"</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">"We use FHIR R4 APIs — no custom HL7 build, no EHR customization. Your Epic team enables the module through the standard App Showroom review. Data at rest and in transit: HIPAA-certified, SOC 2 Type II. Your data is yours — we are never in the chain of custody for PHI."</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">CMIO/CNIO will probe integration depth more than the CIO — they care about clinical data integrity, not just network topology. Have the Epic integration architecture document and data flow diagram ready. Bring an SE. The data ownership question is a legal question — answer it directly and specifically before they have to ask a second time.</p>
+        </details>
+      </div>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- BUDGET & ROI                                -->
+      <!-- ═══════════════════════════════════════════ -->
+      <div class="section-divider" data-section="budget"><span>Budget &amp; ROI</span></div>
+
+      <!-- 22 -->
+      <div class="obj-card" data-cat="budget" data-persona="cfo,ae" data-stage="discovery" style="border-left:4px solid #d97706;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#fef3c7; color:#92400e;">Budget &amp; ROI</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#fef9c3; color:#854d0e;">CFO</span>
+            <span class="stage-pill">Discovery</span>
+          </div>
+        </div>
+        <p class="obj-quote">"We just can't afford a capital project of this size right now."</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">"How many pumps are in your fleet?" [Hear the answer.] "If 20% are over-purchased at your fleet size, that's roughly $X million of capital already deployed against this problem — and you're not getting a return on it. The platform cost pales next to that. When the math comes from your own numbers, that's the real business case."</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">"Can't afford it" assumes a new cost. The reframe: the cost already exists — it's invisible, buried in over-purchasing, rental spend, and productivity loss. Build the ROI from her numbers, not generic estimates. Offering phased deployment concedes the objection — establish the hidden cost first, then phasing becomes a deployment question, not a budget question.</p>
+        </details>
+      </div>
+
+      <!-- 23 -->
+      <div class="obj-card" data-cat="budget" data-persona="cfo,ae,sdr" data-stage="discovery" style="border-left:4px solid #d97706;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#fef3c7; color:#92400e;">Budget &amp; ROI</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#fef9c3; color:#854d0e;">CFO / Any buyer</span>
+            <span class="stage-pill">Discovery</span>
+          </div>
+        </div>
+        <p class="obj-quote">"We don't have budget for this in our current fiscal year."</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">"Totally understand — when does your organization typically open the capital budget planning process for next fiscal year? I'd like to make sure you have everything you'd need to make a strong internal case — ROI model, clinical outcome data, reference sites — so when that window opens, you're not starting from scratch."</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">This is a timing objection, not a rejection. Health systems budget 12–18 months in advance. Do NOT disengage when you hear this. Arm the champion to fight for next-cycle budget. A deal you help build now is one you win later.</p>
+        </details>
+      </div>
+
+      <!-- 24 -->
+      <div class="obj-card" data-cat="budget" data-persona="cfo,ae" data-stage="proposal" style="border-left:4px solid #d97706;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#fef3c7; color:#92400e;">Budget &amp; ROI</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#fef9c3; color:#854d0e;">CFO</span>
+            <span class="stage-pill">Proposal / Close</span>
+          </div>
+        </div>
+        <p class="obj-quote">"How long until we see ROI?"</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">"30 days from go-live. Go-live is under two weeks. No other RTLS platform can say that." Then layer in the three ROI levers: equipment rental elimination (most hospitals cut 50–76%, often $1M+/year), LOS reduction (0.1 days = $2–3K per patient at scale), and nurse retention ($40–60K per nurse saved).</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">The 30-day number is the headline — give it first, then back it up. Never bury it in qualifications. Any one of the three ROI levers justifies the investment at scale; give the CFO all three so they can choose which argument is most defensible internally.</p>
+        </details>
+      </div>
+
+      <!-- 25 -->
+      <div class="obj-card" data-cat="budget" data-persona="cfo,ae" data-stage="proposal" style="border-left:4px solid #d97706;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#fef3c7; color:#92400e;">Budget &amp; ROI</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#fef9c3; color:#854d0e;">CFO</span>
+            <span class="stage-pill">Proposal / Negotiation</span>
+          </div>
+        </div>
+        <p class="obj-quote">"How do I justify this to the Board?"</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">"Lead with equipment rental elimination — most hospitals cut rental spend 50–76%, often $1M+ annually. Then add: LOS reduction (0.1 days = $2–3K per patient at scale) and nurse retention ($40–60K per nurse saved). Any one of those three justifies the investment."</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">Give the CFO three outcomes, not one. Equipment rental elimination is the fastest to calculate and most defensible with auditable data. Do NOT lead with patient satisfaction scores or software subscription cost comparisons — CFOs respond to capital avoidance and labor cost, not satisfaction metrics.</p>
+        </details>
+      </div>
+
+      <!-- 26 -->
+      <div class="obj-card" data-cat="budget" data-persona="cfo,ae" data-stage="proposal" style="border-left:4px solid #d97706;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#fef3c7; color:#92400e;">Budget &amp; ROI</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#fef9c3; color:#854d0e;">CFO</span>
+            <span class="stage-pill">Proposal / Close</span>
+          </div>
+        </div>
+        <p class="obj-quote">"The ROI model looks good on paper — but vendor projections rarely survive contact with reality."</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">"I understand — and I'd rather not ask you to trust our projections either. Would a CFO-to-CFO reference call with a comparable health system be helpful? They can speak to the actual post-deployment return directly — not our estimate of it."</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">This is a credibility objection, not a math objection. The CFO isn't saying the numbers are wrong — they're saying they don't trust vendor-supplied projections. The fix is an independent source: a reference CFO who has seen the actual return.</p>
+        </details>
+      </div>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- PROPOSAL / STAKEHOLDER                      -->
+      <!-- ═══════════════════════════════════════════ -->
+      <div class="section-divider" data-section="proposal"><span>Proposal / Stakeholder</span></div>
+
+      <!-- 27 -->
+      <div class="obj-card" data-cat="proposal" data-persona="cno,ae" data-stage="proposal" style="border-left:4px solid #059669;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#d1fae5; color:#065f46;">Proposal / Stakeholder</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#f0fdf4; color:#166534;">CNO</span>
+            <span class="stage-pill">Proposal</span>
+          </div>
+        </div>
+        <p class="obj-quote">"Our nurses are already overwhelmed — how do I know this reduces their burden rather than adding to it?"</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">Lead with staff outcome data first: 22 minutes per shift saved per nurse, duress response reduced from 4.2 minutes to under 90 seconds. Position the platform as "time back to bedside" — not a new task or system to learn.</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">The CNO evaluates everything through nurse experience and patient care time. Always lead with the time-savings number before any feature explanation. The 60-minutes-per-shift macro-number and the 22-minute case study micro-number are both available — use the micro-number for credibility.</p>
+        </details>
+      </div>
+
+      <!-- 28 -->
+      <div class="obj-card" data-cat="proposal" data-persona="cmio,ae" data-stage="proposal" style="border-left:4px solid #059669;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#d1fae5; color:#065f46;">Proposal / Stakeholder</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#f3e8ff; color:#6b21a8;">CMIO / CNIO</span>
+            <span class="stage-pill">Proposal</span>
+          </div>
+        </div>
+        <p class="obj-quote">"We've seen RTLS implementations that created as many problems as they solved — alert fatigue, integration headaches, nurse workarounds."</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">Lead with the interoperability story. Bring a case study from a comparable Epic/Cerner shop with similar complexity. Have a Solutions Engineer on the call for the technical layer. Do not dismiss the concern — name what failed in those implementations and what Kontakt.io does differently.</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">Pattern-match objection — the CMIO has seen bad implementations and is pattern-matching you to those experiences. Your job is to break the pattern match by demonstrating you understand what failed in those deployments. A peer reference at a comparable site is the most powerful move available.</p>
+        </details>
+      </div>
+
+      <!-- 29 -->
+      <div class="obj-card" data-cat="proposal" data-persona="cno,ae" data-stage="discovery" style="border-left:4px solid #059669;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#d1fae5; color:#065f46;">Proposal / Stakeholder</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#f0fdf4; color:#166534;">CNO / Champion</span>
+            <span class="stage-pill">Discovery → Proposal</span>
+          </div>
+        </div>
+        <p class="obj-quote">"I love it — but IT and Finance need to be involved before we move forward."</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">"That's exactly the right instinct. Would you be open to facilitating a group intro call where you introduce me to IT and Finance together? Having you there as context makes that first conversation much more productive than me reaching out cold."</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">Do NOT cold-contact IT/Finance independently without the CNO's facilitation — it damages the champion relationship. Asking the champion to facilitate the introduction is the correct play. This is a multi-threading situation, not a blocking objection.</p>
+        </details>
+      </div>
+
+      <!-- 30 -->
+      <div class="obj-card" data-cat="proposal" data-persona="vac,ae" data-stage="proposal" style="border-left:4px solid #059669;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#d1fae5; color:#065f46;">Proposal / Stakeholder</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#f1f5f9; color:#334155;">VAC / Procurement</span>
+            <span class="stage-pill">Proposal / VAC</span>
+          </div>
+        </div>
+        <p class="obj-quote">"Do you have peer-reviewed clinical evidence? What GPO contract do you carry? The committee won't approve without both."</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">"Yes — and we need to arm your champion with both before the submission. The VAC will want: clinical outcome evidence, GPO contract alignment (Vizient, Premier, HealthTrust), and a cost-per-outcome analysis. Let me send you the full VAC package so you can review it before the meeting."</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">VAC requirements are checklist items, not opinions. If Kontakt.io doesn't satisfy the checklist, the committee doesn't vote. Discover VAC requirements in the first discovery meeting — not at the submission stage. Prepare the champion, not just the document.</p>
+        </details>
+      </div>
+
+      <!-- 31 -->
+      <div class="obj-card" data-cat="proposal" data-persona="vac,ae" data-stage="proposal" style="border-left:4px solid #059669;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#d1fae5; color:#065f46;">Proposal / Stakeholder</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#f1f5f9; color:#334155;">Supply Chain</span>
+            <span class="stage-pill">Proposal / Negotiation</span>
+          </div>
+        </div>
+        <p class="obj-quote">"We prefer vendors on our approved GPO list. Are you on Vizient, Premier, or HealthTrust?"</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">Know Kontakt.io's GPO contract status and contracted rates before the meeting. If on a GPO, lead with it — it can bypass the full procurement process. If not, know the direct purchase alternative and the supplemental justification required by that health system's policy.</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">"Are you a member of a GPO like Vizient or Premier?" should be asked in the first discovery call. A yes changes your entire pricing and contracting strategy — and can multiply a single facility win by 10x if it's an IDN with standardized procurement.</p>
+        </details>
+      </div>
+
+      <!-- 32 -->
+      <div class="obj-card" data-cat="proposal" data-persona="csuite,ae" data-stage="proposal" style="border-left:4px solid #059669;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#d1fae5; color:#065f46;">Proposal / Stakeholder</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#fdf2f8; color:#9d174d;">C-Suite</span>
+            <span class="stage-pill">Proposal / Close</span>
+          </div>
+        </div>
+        <p class="obj-quote">"You're just another 'AI-powered' vendor."</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">"Our AI runs on clean, continuous IoT data from sensors already deployed in facilities like yours — it's not a proof-of-concept on sample data. When a pump goes missing at shift change, your staff spends 20–40 minutes searching. We surface its location in under 2 minutes, automatically."</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">Hospital executives have heard "AI-powered" from every vendor for three years — it triggers skepticism. Lead with operational outcome, not the AI mechanism. "AI augments — it doesn't replace" is critical framing for clinical executives who fear clinical judgment being overridden.</p>
+        </details>
+      </div>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- NEGOTIATION / CLOSE                         -->
+      <!-- ═══════════════════════════════════════════ -->
+      <div class="section-divider" data-section="close"><span>Negotiation / Close</span></div>
+
+      <!-- 33 -->
+      <div class="obj-card" data-cat="close" data-persona="csuite,ae" data-stage="negotiation" style="border-left:4px solid var(--color-plum);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#f5f3ff; color:#5b21b6;">Negotiation / Close</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#fdf2f8; color:#9d174d;">C-Suite / Any exec</span>
+            <span class="stage-pill">Negotiation / Close</span>
+          </div>
+        </div>
+        <p class="obj-quote">"Can we wait until next year?"</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">"What changes if we push this 6 months?" [Listen.] "The cost of the problem doesn't stop while we wait — nurses are still spending 20–40 minutes per shift searching for equipment. If we started the process now, you'd have 6 more months of time savings behind you by next year." Build urgency from the cost of inaction, not from your quota.</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">Almost always a timing objection, not a priority one. The champion pre-brief should always drill this one — arm your champion to answer it in under 60 seconds without notes before any exec meeting. The three objections always drilled before exec meetings: budget/ROI, Epic integration, and "can we wait."</p>
+        </details>
+      </div>
+
+      <!-- 34 -->
+      <div class="obj-card" data-cat="close" data-persona="csuite,ae" data-stage="negotiation" style="border-left:4px solid var(--color-plum);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#f5f3ff; color:#5b21b6;">Negotiation / Close</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#fdf2f8; color:#9d174d;">C-Suite / Any exec</span>
+            <span class="stage-pill">Negotiation / Close</span>
+          </div>
+        </div>
+        <p class="obj-quote">"How does this fit our 3-year strategic plan? I need to be able to defend this to the board."</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">Look up the health system's published strategic plan before the meeting. Frame Kontakt.io across the three vectors most health systems share: workforce sustainability, patient safety/quality, and operational efficiency/margin. Give them the board-ready narrative: mission impact (clinical outcomes) + margin impact (financial return).</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">C-suite executives need language that works in a board presentation — not a product pitch. Give them the argument, not just the data. The Dual Value Case (clinical outcomes = mission; financial return = margin) is the structure. Make it easy for them to defend you without you in the room.</p>
+        </details>
+      </div>
+
+      <!-- 35 -->
+      <div class="obj-card" data-cat="close" data-persona="vac,ae" data-stage="negotiation" style="border-left:4px solid var(--color-plum);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#f5f3ff; color:#5b21b6;">Negotiation / Close</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#f1f5f9; color:#334155;">Legal / Compliance</span>
+            <span class="stage-pill">Negotiation / Contracting</span>
+          </div>
+        </div>
+        <p class="obj-quote">"Our legal team has redlines on the BAA — this won't be quick."</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">"That's completely expected — BAA redlines are standard in healthcare. I'll flag this to our legal team today and connect them directly with yours so the cycles start immediately. Can you send me the redlines by end of week?" Build the BAA redline window into the Mutual Action Plan.</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">"A few cycles" on BAA redlines can mean 30–90 days. Document it and adjust close date accordingly. Build the BAA redline window into the MAP from early in the deal — discovering this at 80%+ is a self-inflicted delay. Know Kontakt.io's standard BAA positions and what is/isn't negotiable before the conversation starts.</p>
+        </details>
+      </div>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- POST-SALE / CSM                             -->
+      <!-- ═══════════════════════════════════════════ -->
+      <div class="section-divider" data-section="post-sale"><span>Post-Sale / CSM</span></div>
+
+      <!-- 36 -->
+      <div class="obj-card" data-cat="post-sale" data-persona="csm" data-stage="post-sale" style="border-left:4px solid #0891b2;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#cffafe; color:#155e75;">Post-Sale / CSM</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#ecfdf5; color:#065f46;">CSM</span>
+            <span class="stage-pill">Post-Sale / Expansion</span>
+          </div>
+        </div>
+        <p class="obj-quote">"We haven't fully deployed yet — we're not ready to talk expansion."</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">"That's completely the right instinct — I'm not asking you to commit to anything. What would you need to see from the next 90 days to feel confident taking this to the next floor or department? I want to make sure we're measuring the right things to answer that question."</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">Don't push expansion prematurely — it damages trust. Instead, define what success looks like in 90 days and align on the metrics that would naturally trigger expansion conversations. You're planting the seed, not harvesting.</p>
+        </details>
+      </div>
+
+      <!-- 37 -->
+      <div class="obj-card" data-cat="post-sale" data-persona="csm" data-stage="post-sale" style="border-left:4px solid #0891b2;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#cffafe; color:#155e75;">Post-Sale / CSM</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#ecfdf5; color:#065f46;">CSM</span>
+            <span class="stage-pill">Post-Sale / Renewal</span>
+          </div>
+        </div>
+        <p class="obj-quote">"Our budget got cut — renewal is going to be a harder conversation this year."</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">"I appreciate you telling me early — that's exactly the kind of heads-up that lets us get ahead of it together. The best way to protect the renewal is to build the business case before it goes to the formal budget process. Can we spend the next QBR putting together the data your CFO would need to see?"</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">A budget cut warning at renewal is a gift — it means the champion trusts you enough to give you advance notice. Start building the internal renewal business case immediately. Don't wait for the formal renewal conversation to begin before you have the data ready.</p>
+        </details>
+      </div>
+
+      <!-- 38 -->
+      <div class="obj-card" data-cat="post-sale" data-persona="csm" data-stage="post-sale" style="border-left:4px solid #0891b2;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; flex-wrap:wrap;">
+          <span class="cat-pill" style="background:#cffafe; color:#155e75;">Post-Sale / CSM</span>
+          <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+            <span class="persona-pill" style="background:#ecfdf5; color:#065f46;">CSM</span>
+            <span class="stage-pill">Post-Sale / Adoption</span>
+          </div>
+        </div>
+        <p class="obj-quote">"The nurses aren't using it as much as we hoped."</p>
+        <div>
+          <p class="obj-section-label">Response</p>
+          <p class="obj-response">"That's really important to hear — and adoption gaps at this stage are almost always fixable. Is it a specific unit, a specific workflow, or more of a general awareness issue? Each of those has a different root cause — I want to make sure we're solving the right one before we do anything."</p>
+        </div>
+        <details>
+          <summary>Coaching Note</summary>
+          <p class="obj-coaching">Diagnose before prescribing. Specific unit = floor champion problem. Specific workflow = training or UX problem. General awareness = communication problem. A renewal that goes to risk because of adoption is recoverable if you diagnose early. Each root cause has a different fix.</p>
+        </details>
+      </div>
+
+      <!-- NO RESULTS -->
+      <div class="no-results" id="no-results">No objections match your filters. Try resetting or broadening your search.</div>
+
+    </div><!-- /obj-grid -->
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p>Kontakt.io Revenue Enablement &nbsp;|&nbsp; <a href="index.html">Program Overview</a> &nbsp;|&nbsp; <a href="status-tracker.html">Master Status Tracker</a></p>
+  </div>
+</footer>
+
+<script src="scripts.js"></script>
+<script>
+(function () {
+  var cards = Array.from(document.querySelectorAll('.obj-card'));
+  var dividers = Array.from(document.querySelectorAll('.section-divider'));
+  var searchEl = document.getElementById('obj-search');
+  var catEl = document.getElementById('obj-cat');
+  var personaEl = document.getElementById('obj-persona');
+  var stageEl = document.getElementById('obj-stage');
+  var countEl = document.getElementById('obj-count');
+  var noResults = document.getElementById('no-results');
+
+  function filter() {
+    var s = searchEl.value.toLowerCase().trim();
+    var cat = catEl.value;
+    var persona = personaEl.value;
+    var stage = stageEl.value;
+    var visible = 0;
+
+    cards.forEach(function (c) {
+      var text = c.textContent.toLowerCase();
+      var cCat = c.dataset.cat || '';
+      var cPersona = c.dataset.persona || '';
+      var cStage = c.dataset.stage || '';
+      var ok = (!s || text.includes(s))
+             && (!cat || cCat === cat)
+             && (!persona || cPersona.split(',').some(function(p){ return p.trim() === persona; }))
+             && (!stage || cStage === stage);
+      c.style.display = ok ? '' : 'none';
+      if (ok) visible++;
+    });
+
+    countEl.textContent = 'Showing ' + visible + ' of ' + cards.length;
+    noResults.style.display = visible === 0 ? 'block' : 'none';
+
+    // Show/hide section dividers based on whether any visible card follows them
+    dividers.forEach(function (div) {
+      var sec = div.dataset.section;
+      var hasVisible = cards.some(function (c) {
+        return c.dataset.cat === sec && c.style.display !== 'none';
+      });
+      div.style.display = hasVisible ? '' : 'none';
+    });
+  }
+
+  searchEl.addEventListener('input', filter);
+  catEl.addEventListener('change', filter);
+  personaEl.addEventListener('change', filter);
+  stageEl.addEventListener('change', filter);
+
+  window.resetFilters = function () {
+    searchEl.value = '';
+    catEl.value = '';
+    personaEl.value = '';
+    stageEl.value = '';
+    filter();
+  };
+
+  filter();
+})();
+</script>
+</body>
+</html>

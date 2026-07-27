@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mentor Program | Kontakt.io Onboarding</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── Activity Card ─────────────────────────────── */
+    .act-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: var(--radius);
+      padding: 1.2rem 1.3rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: box-shadow 0.18s;
+    }
+    .act-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.07); }
+
+    .act-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; flex-wrap: wrap; }
+
+    .day-badge {
+      font-size: 0.68rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.09em; background: #f3f4f6; color: #6b7280;
+      padding: 0.2rem 0.6rem; border-radius: 999px;
+    }
+
+    .leads-badge {
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.07em; padding: 0.18rem 0.6rem; border-radius: 999px;
+    }
+    .leads-mentor   { background: #f5f3ff; color: #5b21b6; }
+    .leads-mentee   { background: #fef2f2; color: #b91c1c; }
+    .leads-both     { background: #f0fdf4; color: #166534; }
+
+    .act-name {
+      font-size: 0.97rem; font-weight: 700; color: #1f2937; line-height: 1.45; margin: 0;
+    }
+
+    .format-chip {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      font-size: 0.76rem; color: #6b7280; background: #f9fafb;
+      border: 1px solid #e5e7eb; border-radius: 6px; padding: 0.22rem 0.6rem;
+    }
+
+    .act-field-label {
+      font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.09em; color: #9ca3af; margin: 0 0 0.25rem;
+    }
+    .act-field-body {
+      font-size: 0.83rem; color: #374151; line-height: 1.65; margin: 0;
+    }
+
+    .act-deliverable {
+      background: #f8f5ff; border-left: 3px solid var(--color-plum);
+      border-radius: 0 6px 6px 0; padding: 0.6rem 0.8rem;
+    }
+    .act-deliverable .act-field-label { color: var(--color-plum); }
+
+    /* ── Progress bar ──────────────────────────────── */
+    .prog-wrap { background: #e5e7eb; border-radius: 999px; height: 8px; overflow: hidden; }
+    .prog-fill  { height: 100%; background: var(--color-plum); border-radius: 999px; transition: width 0.35s ease; }
+
+    /* ── Stats strip ────────────────────────────────── */
+    .stats-strip {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 0.75rem; margin-bottom: 1.5rem;
+    }
+    .stat-card {
+      background: #fff; border: 1px solid #e5e7eb; border-radius: var(--radius);
+      padding: 1rem 1.1rem; text-align: center;
+    }
+    .stat-value { font-size: 1.5rem; font-weight: 800; color: var(--color-plum); line-height: 1; margin-bottom: 0.3rem; }
+    .stat-label { font-size: 0.75rem; color: #6b7280; text-transform: uppercase; letter-spacing: 0.07em; font-weight: 600; }
+
+    /* ── Accordion tweaks ───────────────────────────── */
+    .week-label {
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+      padding: 0.18rem 0.7rem; border-radius: 999px; margin-left: 0.6rem;
+    }
+    .wk1 { background: #fef2f2; color: #b91c1c; }
+    .wk2 { background: #f5f3ff; color: #5b21b6; }
+    .wk3 { background: #f0fdf4; color: #166534; }
+
+    .act-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 1rem; }
+
+    /* ── Who Leads legend ───────────────────────────── */
+    .legend { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1.5rem; }
+    .legend-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.78rem; color: #6b7280; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+    @media(max-width:600px) { .act-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<nav class="main-nav">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">
+      <img src="https://kontakt.io/app/themes/juniper-theme-new/dist/logo.2dc4261a.svg" alt="Kontakt.io" style="height:26px; display:block;" />
+      <span class="logo-subtitle">Revenue Enablement</span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="index.html">Program Overview</a></li>
+      <li class="nav-dropdown">
+        <button class="dropdown-toggle">Week 1 &#x25BE;</button>
+        <ul class="dropdown-menu week-nav-menu">
+          <li class="nav-day-item"><a href="week-1.html#day1">Day 1 &#x2014; Who is Kontakt.io?</a></li>
+          <li class="nav-day-item" data-unlock-key="kontakt-w1d1_quiz" data-unlock-val="done"><a href="week-1.html#day2">Day 2 &#x2014; The Hospital Crisis</a></li>
+          <li class="nav-day-item" data-unlock-key="kontakt-w1d2_quiz" data-unlock-val="done"><a href="week-1.html#day3">Day 3 &#x2014; Platform &amp; Use Cases</a></li>
+          <li class="nav-day-item" data-unlock-key="kontakt-w1d3_quiz" data-unlock-val="done"><a href="week-1.html#day4">Day 4 &#x2014; Persona Mastery</a></li>
+          <li class="nav-day-item" data-unlock-key="kontakt-w1d4_quiz" data-unlock-val="done"><a href="week-1.html#day5">Day 5 &#x2014; KIO Beyond RTLS</a></li>
+        </ul>
+      </li>
+      <li class="nav-dropdown">
+        <button class="dropdown-toggle">Week 2 &#x25BE;</button>
+        <ul class="dropdown-menu week-nav-menu">
+          <li class="nav-day-item" data-unlock-key="kontakt-w1d5_quiz" data-unlock-val="done"><a href="week-2.html#day6">Day 6 &#x2014; Selling into Healthcare</a></li>
+          <li class="nav-day-item" data-unlock-key="kontakt-w2d6_quiz" data-unlock-val="done"><a href="week-2.html#day7">Day 7 &#x2014; Strategic Conversations</a></li>
+          <li class="nav-day-item" data-unlock-key="kontakt-w2d7_quiz" data-unlock-val="done"><a href="week-2.html#day8">Day 8 &#x2014; Enabling Your Buyers</a></li>
+          <li class="nav-day-item" data-unlock-key="kontakt-w2d8_quiz" data-unlock-val="done"><a href="week-2.html#day9">Day 9 &#x2014; AI Orchestration</a></li>
+          <li class="nav-day-item" data-unlock-key="kontakt-w2d9" data-unlock-val="complete"><a href="week-2.html#day10">Day 10 &#x2014; Sales Processes</a></li>
+        </ul>
+      </li>
+      <li><a href="week-3.html">Week 3</a></li>
+      <li><a href="week-4.html">Week 4</a></li>
+      <li class="nav-dropdown">
+        <button class="dropdown-toggle">Role Tracks ▾</button>
+        <ul class="dropdown-menu">
+          <li><span style="display:flex;align-items:center;justify-content:space-between;padding:0.35rem 1rem;color:#9ca3af;cursor:not-allowed;pointer-events:none;user-select:none;">AE Track<span style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;background:#e5e7eb;color:#9ca3af;padding:0.1rem 0.45rem;border-radius:999px;margin-left:0.5rem;">Soon</span></span></li>
+          <li><span style="display:flex;align-items:center;justify-content:space-between;padding:0.35rem 1rem;color:#9ca3af;cursor:not-allowed;pointer-events:none;user-select:none;">SDR Track<span style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;background:#e5e7eb;color:#9ca3af;padding:0.1rem 0.45rem;border-radius:999px;margin-left:0.5rem;">Soon</span></span></li>
+          <li><span style="display:flex;align-items:center;justify-content:space-between;padding:0.35rem 1rem;color:#9ca3af;cursor:not-allowed;pointer-events:none;user-select:none;">CSM Track<span style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;background:#e5e7eb;color:#9ca3af;padding:0.1rem 0.45rem;border-radius:999px;margin-left:0.5rem;">Soon</span></span></li>
+        </ul>
+      </li>
+      <li class="nav-dropdown">
+        <button class="dropdown-toggle">Resources ▾</button>
+        <ul class="dropdown-menu">
+          <li><a href="milestones.html">Milestones</a></li>
+          <li><a href="objection-library.html">Objection Library</a></li>
+          <li><a href="mentor-program.html">Mentor Program</a></li>
+          <li><a href="status-tracker.html">Master Status Tracker</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="container">
+    <h1>Peer Mentor Program</h1>
+    <p class="subtitle">A 3-week structured peer relationship running parallel to the core program — building confidence, fluency, and deal process understanding through direct observation, real deal work, and coached practice.</p>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+
+    <!-- ── OVERVIEW CARD ─────────────────────────── -->
+    <div class="card" style="margin-bottom:1.5rem;">
+      <h2 style="margin:0 0 1.1rem;">Program Overview</h2>
+      <div class="stats-strip">
+        <div class="stat-card">
+          <div class="stat-value">3</div>
+          <div class="stat-label">Weeks</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">11</div>
+          <div class="stat-label">Activities</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">2–3 hrs</div>
+          <div class="stat-label">Per week / per person</div>
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:0.85rem;">
+        <div style="background:#f8f5ff; border-radius:var(--radius); padding:0.9rem 1rem;">
+          <p style="font-weight:700; font-size:0.85rem; color:var(--color-plum); margin:0 0 0.35rem;">Purpose</p>
+          <p style="font-size:0.83rem; color:#374151; margin:0; line-height:1.65;">Build confidence, fluency, and deal process understanding through structured peer relationships and hands-on activities that the core curriculum alone can't provide.</p>
+        </div>
+        <div style="background:#f8f5ff; border-radius:var(--radius); padding:0.9rem 1rem;">
+          <p style="font-weight:700; font-size:0.85rem; color:var(--color-plum); margin:0 0 0.35rem;">Mentor Profile</p>
+          <p style="font-size:0.83rem; color:#374151; margin:0; line-height:1.65;">Top-performing rep with 1+ year tenure and a demonstrated culture fit. Mentors model both the skills and the mindset.</p>
+        </div>
+        <div style="background:#f8f5ff; border-radius:var(--radius); padding:0.9rem 1rem;">
+          <p style="font-weight:700; font-size:0.85rem; color:var(--color-plum); margin:0 0 0.35rem;">How the Weeks Map</p>
+          <p style="font-size:0.83rem; color:#374151; margin:0; line-height:1.65;"><strong>Week 1 — Foundation:</strong> Set expectations, observe real calls, build context.<br><strong>Week 2 — Execution:</strong> See live deals, shadow discovery, take the wheel.<br><strong>Week 3 — Independence:</strong> Build your own strategy, run your own call, certify.</p>
+        </div>
+        <div style="background:#fff8e1; border-radius:var(--radius); padding:0.9rem 1rem; border:1px solid #fde68a;">
+          <p style="font-weight:700; font-size:0.85rem; color:#92400e; margin:0 0 0.35rem;">For Mentees</p>
+          <p style="font-size:0.83rem; color:#374151; margin:0; line-height:1.65;">Come to every session prepared. Your mentor's time is your most valuable resource in this program — show up with questions, observations, and your own thinking ready.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PROGRESS TRACKER ──────────────────────── -->
+    <div class="card" style="margin-bottom:1.5rem;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+        <h3 style="margin:0;">Your Progress</h3>
+        <span id="prog-label" style="font-size:0.8rem; color:#6b7280;">0 of 11 complete</span>
+      </div>
+      <div class="prog-wrap">
+        <div class="prog-fill" id="prog-fill" style="width:0%;"></div>
+      </div>
+    </div>
+
+    <!-- ── LEGEND ────────────────────────────────── -->
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#7c3aed;"></div> Mentor leads</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#e11d48;"></div> Mentee leads</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#059669;"></div> Both / Collaborative</div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         ACCORDION
+    ══════════════════════════════════════════════ -->
+    <div class="accordion">
+
+      <!-- ── WEEK 1 ─── -->
+      <div class="accordion-item open">
+        <button class="accordion-trigger">
+          <span>Week 1 — Foundation <span class="week-label wk1">Days 2–5</span></span>
+          <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+        </button>
+        <div class="accordion-body">
+          <p style="font-size:0.83rem; color:#6b7280; margin:0 0 1rem; line-height:1.6;">Break the ice, set expectations, and give the mentee a ground-level view of what real outbound and real personas actually look like — before they have to do it themselves.</p>
+          <div class="act-grid">
+
+            <!-- Day 2 -->
+            <div class="act-card">
+              <div class="act-header">
+                <span class="day-badge">Day 2</span>
+                <span class="leads-badge leads-mentor">Mentor leads</span>
+              </div>
+              <p class="act-name">Mentor Intro Meeting</p>
+              <span class="format-chip">&#x1F4F9; 1:1 Video or In-Person &nbsp;·&nbsp; 30 min</span>
+              <div>
+                <p class="act-field-label">Objective</p>
+                <p class="act-field-body">Break the ice, set expectations, and share the mentor's personal journey — both in their career and at Kontakt. Define communication norms, meeting cadence, and goals for the 3 weeks ahead.</p>
+              </div>
+              <div class="act-deliverable">
+                <p class="act-field-label">Deliverable — Mentee</p>
+                <p class="act-field-body">Submit 3 things you want to learn from your mentor by the end of the program. Share before your next session.</p>
+              </div>
+              <div style="display:flex; justify-content:flex-end; margin-top:0.5rem;">
+                <button class="status-toggle" data-status="not-started" data-storage-key="mentor-w1d2">Not Started</button>
+              </div>
+            </div>
+
+            <!-- Day 3 -->
+            <div class="act-card">
+              <div class="act-header">
+                <span class="day-badge">Day 3</span>
+                <span class="leads-badge leads-mentor">Mentor leads</span>
+              </div>
+              <p class="act-name">Shadow a Prospecting Block</p>
+              <span class="format-chip">&#x1F4DE; Live or Recorded Call Block &nbsp;·&nbsp; 60 min</span>
+              <div>
+                <p class="act-field-label">Objective</p>
+                <p class="act-field-body">Mentee observes real outbound calls — paying attention to tone, pacing, objection handling, and how the mentor recovers from rejection in real time. Listen more than you watch.</p>
+              </div>
+              <div class="act-deliverable">
+                <p class="act-field-label">Deliverable — Mentee</p>
+                <p class="act-field-body">Write down 3 specific observations from the session and share them with your mentor after the call. Be specific — not "good pacing" but "paused for 3 seconds after naming the pain before asking the question."</p>
+              </div>
+              <div style="display:flex; justify-content:flex-end; margin-top:0.5rem;">
+                <button class="status-toggle" data-status="not-started" data-storage-key="mentor-w1d3">Not Started</button>
+              </div>
+            </div>
+
+            <!-- Day 4 -->
+            <div class="act-card">
+              <div class="act-header">
+                <span class="day-badge">Day 4</span>
+                <span class="leads-badge leads-mentor">Mentor leads</span>
+              </div>
+              <p class="act-name">Persona Perspective Session</p>
+              <span class="format-chip">&#x1F4AC; Informal Conversation &nbsp;·&nbsp; 30 min</span>
+              <div>
+                <p class="act-field-label">Objective</p>
+                <p class="act-field-body">Mentor shares real stories from the field — what actually happens when you call a CNO vs. a BioMed director vs. a CFO. The course content tells you the framework; your mentor tells you what it's really like.</p>
+              </div>
+              <div class="act-deliverable">
+                <p class="act-field-label">Deliverable — Mentee</p>
+                <p class="act-field-body">Update your personal persona notes with the real-world nuance from this conversation. Where does the course content hold up? Where does reality differ?</p>
+              </div>
+              <div style="display:flex; justify-content:flex-end; margin-top:0.5rem;">
+                <button class="status-toggle" data-status="not-started" data-storage-key="mentor-w1d4">Not Started</button>
+              </div>
+            </div>
+
+            <!-- Day 5 -->
+            <div class="act-card">
+              <div class="act-header">
+                <span class="day-badge">Day 5</span>
+                <span class="leads-badge leads-mentee">Mentee leads</span>
+              </div>
+              <p class="act-name">Week 1 Self-Reflection &amp; Check-in</p>
+              <span class="format-chip">&#x1F4DD; Self-Reflection + 1:1 &nbsp;·&nbsp; 20 min</span>
+              <div>
+                <p class="act-field-label">Objective</p>
+                <p class="act-field-body">What did you learn this week? What's still confusing? What feels intimidating about Week 2? This is also your chance to submit open questions to enablement before moving forward.</p>
+              </div>
+              <div class="act-deliverable">
+                <p class="act-field-label">Deliverable — Mentee</p>
+                <p class="act-field-body">Write a 5-bullet reflection and send it to your mentor <strong>before</strong> your check-in call. The call is a conversation — not a first read.</p>
+              </div>
+              <div style="display:flex; justify-content:flex-end; margin-top:0.5rem;">
+                <button class="status-toggle" data-status="not-started" data-storage-key="mentor-w1d5">Not Started</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ── WEEK 2 ─── -->
+      <div class="accordion-item">
+        <button class="accordion-trigger">
+          <span>Week 2 — Execution <span class="week-label wk2">Days 7–10</span></span>
+          <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+        </button>
+        <div class="accordion-body">
+          <p style="font-size:0.83rem; color:#6b7280; margin:0 0 1rem; line-height:1.6;">Move from observation to participation. This week, the mentee sees a live deal in motion, co-pilots a real discovery call, and then takes the wheel themselves for the first time.</p>
+          <div class="act-grid">
+
+            <!-- Day 7 -->
+            <div class="act-card">
+              <div class="act-header">
+                <span class="day-badge">Day 7</span>
+                <span class="leads-badge leads-mentor">Mentor leads</span>
+              </div>
+              <p class="act-name">Live Deal Walkthrough</p>
+              <span class="format-chip">&#x1F4CA; Pipeline Review &nbsp;·&nbsp; 45 min</span>
+              <div>
+                <p class="act-field-label">Objective</p>
+                <p class="act-field-body">Mentor walks through 1–2 active deals: how they got in the account, where the deal stands today, what's blocking progress, and what the next move is. This is a real pipeline conversation — not a role play.</p>
+              </div>
+              <div class="act-deliverable">
+                <p class="act-field-label">Deliverable — Mentee</p>
+                <p class="act-field-body">Map one of the deals using the buying committee framework: identify the Economic Buyer, Champion, Technical Evaluator, and Procurement contact — as best you can from what you heard. Discuss your map with your mentor.</p>
+              </div>
+              <div style="display:flex; justify-content:flex-end; margin-top:0.5rem;">
+                <button class="status-toggle" data-status="not-started" data-storage-key="mentor-w2d7">Not Started</button>
+              </div>
+            </div>
+
+            <!-- Day 8 -->
+            <div class="act-card">
+              <div class="act-header">
+                <span class="day-badge">Day 8</span>
+                <span class="leads-badge leads-mentor">Mentor leads</span>
+              </div>
+              <p class="act-name">Co-Pilot a Discovery Call</p>
+              <span class="format-chip">&#x1F4DE; Live Discovery Call &nbsp;·&nbsp; 45–60 min</span>
+              <div>
+                <p class="act-field-label">Objective</p>
+                <p class="act-field-body">Mentee joins a real discovery call silently. Listen for how the mentor structures questions, uses silence, and quantifies pain. Do not speak. Do not introduce yourself unless the mentor asks you to.</p>
+              </div>
+              <div class="act-deliverable">
+                <p class="act-field-label">Deliverable — Mentee</p>
+                <p class="act-field-body">Complete a call scorecard in real time during the session. Submit the scorecard to enablement directly after the call — before debriefing with your mentor.</p>
+              </div>
+              <div style="display:flex; justify-content:flex-end; margin-top:0.5rem;">
+                <button class="status-toggle" data-status="not-started" data-storage-key="mentor-w2d8">Not Started</button>
+              </div>
+            </div>
+
+            <!-- Day 9 -->
+            <div class="act-card">
+              <div class="act-header">
+                <span class="day-badge">Day 9</span>
+                <span class="leads-badge leads-mentee">Mentee leads</span>
+              </div>
+              <p class="act-name">Mentee Leads a Mock Discovery Call</p>
+              <span class="format-chip">&#x1F3A4; Live Call Block &nbsp;·&nbsp; 60 min</span>
+              <div>
+                <p class="act-field-label">Objective</p>
+                <p class="act-field-body">Mentee runs a mock discovery call (or live cold calls) while the mentor listens silently. This is the first time the mentee is in the seat. The mentor does not intervene unless it's necessary to protect the relationship.</p>
+              </div>
+              <div class="act-deliverable">
+                <p class="act-field-label">Deliverable — Mentee</p>
+                <p class="act-field-body">After the session, write or update your own call scripts based on what you experienced today — the things that worked, the moments you got stuck, and what you'd change. Keep them.</p>
+              </div>
+              <div style="display:flex; justify-content:flex-end; margin-top:0.5rem;">
+                <button class="status-toggle" data-status="not-started" data-storage-key="mentor-w2d9">Not Started</button>
+              </div>
+            </div>
+
+            <!-- Day 10 -->
+            <div class="act-card">
+              <div class="act-header">
+                <span class="day-badge">Day 10</span>
+                <span class="leads-badge leads-both">Both</span>
+              </div>
+              <p class="act-name">Mid-Program Pulse Survey</p>
+              <span class="format-chip">&#x1F4CB; Written Survey &nbsp;·&nbsp; 10 min</span>
+              <div>
+                <p class="act-field-label">Objective</p>
+                <p class="act-field-body">A structured check-in for both parties: Is the relationship working? Is the mentee getting what they need? Does the mentor need any support from enablement going into Week 3?</p>
+              </div>
+              <div class="act-deliverable">
+                <p class="act-field-label">Deliverable — Both</p>
+                <p class="act-field-body">Both mentor and mentee submit separate pulse surveys to enablement and the sales manager. Two surveys — one for each person. This is not optional.</p>
+              </div>
+              <div style="display:flex; justify-content:flex-end; margin-top:0.5rem;">
+                <button class="status-toggle" data-status="not-started" data-storage-key="mentor-w2d10">Not Started</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ── WEEK 3 ─── -->
+      <div class="accordion-item">
+        <button class="accordion-trigger">
+          <span>Week 3 — Independence <span class="week-label wk3">Days 13–15+</span></span>
+          <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+        </button>
+        <div class="accordion-body">
+          <p style="font-size:0.83rem; color:#6b7280; margin:0 0 1rem; line-height:1.6;">The mentee takes full ownership. Build a real account strategy, run a fully independent call, and certify out of the program with a 30-day plan the mentor and enablement both sign off on.</p>
+          <div class="act-grid">
+
+            <!-- Day 13 -->
+            <div class="act-card">
+              <div class="act-header">
+                <span class="day-badge">Day 13</span>
+                <span class="leads-badge leads-both">Both</span>
+              </div>
+              <p class="act-name">Account Strategy Session</p>
+              <span class="format-chip">&#x1F3AF; Working Session &nbsp;·&nbsp; 60 min</span>
+              <div>
+                <p class="act-field-label">Objective</p>
+                <p class="act-field-body">Mentor and mentee co-build an outreach strategy for the mentee's top 3 target accounts — covering stakeholder mapping, messaging angles, cadence design, and timing. The mentee drives. The mentor challenges.</p>
+              </div>
+              <div class="act-deliverable">
+                <p class="act-field-label">Deliverable — Mentee</p>
+                <p class="act-field-body">Leave the session with a documented outreach plan for all 3 accounts — reviewed and approved by your mentor before you execute it.</p>
+              </div>
+              <div style="display:flex; justify-content:flex-end; margin-top:0.5rem;">
+                <button class="status-toggle" data-status="not-started" data-storage-key="mentor-w3d13">Not Started</button>
+              </div>
+            </div>
+
+            <!-- Day 14 -->
+            <div class="act-card">
+              <div class="act-header">
+                <span class="day-badge">Day 14</span>
+                <span class="leads-badge leads-mentee">Mentee leads</span>
+              </div>
+              <p class="act-name">Reverse Shadow — Full Call, Mentor Watches</p>
+              <span class="format-chip">&#x1F3A4; Live Full Call &nbsp;·&nbsp; 45 min</span>
+              <div>
+                <p class="act-field-label">Objective</p>
+                <p class="act-field-body">Mentee runs a complete call entirely independently. The mentor observes silently and intervenes only if absolutely necessary to protect the relationship. This is the real test of what the 3 weeks have built.</p>
+              </div>
+              <div class="act-deliverable">
+                <p class="act-field-label">Deliverable — Mentor</p>
+                <p class="act-field-body">Mentor completes the final call assessment during the session. Both mentor and mentee review it together immediately after — specific, honest, and constructive.</p>
+              </div>
+              <div style="display:flex; justify-content:flex-end; margin-top:0.5rem;">
+                <button class="status-toggle" data-status="not-started" data-storage-key="mentor-w3d14">Not Started</button>
+              </div>
+            </div>
+
+            <!-- Day 15+ -->
+            <div class="act-card" style="border-color:var(--color-plum); border-width:2px;">
+              <div class="act-header">
+                <span class="day-badge" style="background:#f5f3ff; color:var(--color-plum);">Day 15+</span>
+                <span class="leads-badge leads-both">Both + Enablement</span>
+              </div>
+              <p class="act-name">Program Certification &amp; Ongoing Relationship</p>
+              <span class="format-chip">&#x1F393; Structured Close &nbsp;·&nbsp; 30 min</span>
+              <div>
+                <p class="act-field-label">Objective</p>
+                <p class="act-field-body">Reflect on the full journey together. The mentee shares their key learnings and growth moments. The mentor shares their observations of the mentee's development. Enablement facilitates.</p>
+              </div>
+              <div class="act-deliverable">
+                <p class="act-field-label">Deliverable — Mentee</p>
+                <p class="act-field-body">Present your 30-day independent action plan. Mentor and enablement co-sign and provide final guidance. This plan is yours to execute — without a mentor watching over your shoulder.</p>
+              </div>
+              <div style="display:flex; justify-content:flex-end; margin-top:0.5rem;">
+                <button class="status-toggle" data-status="not-started" data-storage-key="mentor-w3d15">Not Started</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.accordion -->
+
+    <!-- ── WHAT MAKES A GREAT MENTOR ─────────────── -->
+    <div class="card" style="margin-top:2rem;">
+      <h3 style="margin:0 0 0.9rem;">What Makes a Great Mentor in This Program</h3>
+      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:0.75rem;">
+        <div style="padding:0.85rem 1rem; background:#f9fafb; border-radius:var(--radius); border-left:3px solid var(--color-plum);">
+          <p style="font-weight:700; font-size:0.85rem; color:#1f2937; margin:0 0 0.3rem;">Shows real deals, not demos</p>
+          <p style="font-size:0.81rem; color:#6b7280; margin:0; line-height:1.6;">A mentor who opens their live pipeline and talks honestly about what's blocking a deal teaches more in 45 minutes than any course module.</p>
+        </div>
+        <div style="padding:0.85rem 1rem; background:#f9fafb; border-radius:var(--radius); border-left:3px solid var(--color-plum);">
+          <p style="font-weight:700; font-size:0.85rem; color:#1f2937; margin:0 0 0.3rem;">Lets the mentee fail safely</p>
+          <p style="font-size:0.81rem; color:#6b7280; margin:0; line-height:1.6;">The reverse shadow is not a performance review. It's a learning environment. A mentor who intervenes too early robs the mentee of the experience that sticks.</p>
+        </div>
+        <div style="padding:0.85rem 1rem; background:#f9fafb; border-radius:var(--radius); border-left:3px solid var(--color-plum);">
+          <p style="font-weight:700; font-size:0.85rem; color:#1f2937; margin:0 0 0.3rem;">Gives specific feedback</p>
+          <p style="font-size:0.81rem; color:#6b7280; margin:0; line-height:1.6;">"That was good" is not coaching. "When the prospect said X, you missed the follow-up question — here's why that matters" is coaching.</p>
+        </div>
+        <div style="padding:0.85rem 1rem; background:#f9fafb; border-radius:var(--radius); border-left:3px solid var(--color-plum);">
+          <p style="font-weight:700; font-size:0.85rem; color:#1f2937; margin:0 0 0.3rem;">Shows up on time, every time</p>
+          <p style="font-size:0.81rem; color:#6b7280; margin:0; line-height:1.6;">A mentor who cancels or shows up unprepared signals that the program — and the mentee — doesn't matter. Reliability is itself a lesson in professionalism.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p>Kontakt.io Revenue Enablement &nbsp;|&nbsp; <a href="index.html">Program Overview</a> &nbsp;|&nbsp; <a href="status-tracker.html">Master Status Tracker</a></p>
+  </div>
+</footer>
+
+<script src="scripts.js"></script>
+<script>
+(function () {
+  var keys = [
+    'mentor-w1d2','mentor-w1d3','mentor-w1d4','mentor-w1d5',
+    'mentor-w2d7','mentor-w2d8','mentor-w2d9','mentor-w2d10',
+    'mentor-w3d13','mentor-w3d14','mentor-w3d15'
+  ];
+  var total = keys.length;
+
+  function updateProgress() {
+    var done = keys.filter(function(k) {
+      return localStorage.getItem('kontakt-' + k) === 'complete';
+    }).length;
+    var pct = Math.round((done / total) * 100);
+    document.getElementById('prog-fill').style.width = pct + '%';
+    document.getElementById('prog-label').textContent = done + ' of ' + total + ' complete';
+  }
+
+  // Patch status toggles to also update the progress bar
+  document.querySelectorAll('.status-toggle').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      setTimeout(updateProgress, 0);
+    });
+  });
+
+  updateProgress();
+})();
+</script>
+</body>
+</html>
